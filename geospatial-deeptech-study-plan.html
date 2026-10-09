@@ -1,0 +1,2176 @@
+<!DOCTYPE html>
+<!--
+=============================================================================
+  READ THIS FIRST — NOTE FOR ANY AI ASSISTANT GIVEN THIS FILE
+=============================================================================
+  This file is a personal 18-month study + build tracker for a geospatial
+  deep-tech startup founder based in Gujarat, India.
+
+  Everything you need to understand the plan is machine-readable:
+    • <script type="application/json" id="plan-context">  — goal, constraints,
+      stages, build milestones, how to help.
+    • const STAGES / MODULES  (in the main <script>) — the full curriculum:
+      every module, topic group and individual topic.
+    • const BOM — the costed bill of materials for the balloon (96 lines),
+      plus the budget findings. See plan-context.bill_of_materials.
+    • Topic codes: every topic has a code like M14-C05 (module 14, group C,
+      item 5). The learner quotes a code to ask for one specific topic. See
+      plan-context.topic_codes for how to resolve one.
+    • Sources: each module's `res` array holds its own reading list and tools,
+      and const LIBRARY holds the global study materials (books, free courses,
+      primary standards, open datasets, software, paper archives). Fetch these
+      and teach from them rather than from memory. See
+      plan-context.study_materials_and_sources for how to use them.
+    • The learner's tick state lives in browser localStorage under the key
+      'geo-deeptech-plan-v1' and is NOT stored in this file. If the learner
+      wants you to know their progress, ask them to click "Export progress"
+      and paste or upload the resulting JSON. Keys in that JSON match the
+      data-id attribute of each checkbox, format:  m<module>-<group>-<index>.
+
+  Do not rewrite the plan wholesale unless asked. Prefer surgical edits.
+=============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geospatial &amp; Deep Tech — 18 Month Plan</title>
+<meta name="description" content="An 18-month study and build plan: geospatial science, satellite engineering, GeoAI and a returning stratospheric balloon payload.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* DESIGN.md tokens */
+  --primary:#1b1938;
+  --primary-deep:#0e0c1f;
+  --on-primary:#ffffff;
+  --ink:#292827;
+  --ink-mute:#73706d;
+  --ink-faint:#9a9794;
+  --canvas:#ffffff;
+  --canvas-soft:#fafaf8;
+  --violet-soft:#c9b4fa;
+  --teal-deep:#0e3030;
+  --teal-mid:#155555;
+  --hairline:#e8e4dd;
+  --hairline-dark:#3f3a52;
+  --on-dark-mute:rgba(255,255,255,.72);
+  --on-dark-faint:rgba(255,255,255,.42);
+
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-full:9999px;
+  --s-xs:4px; --s-sm:8px; --s-md:12px; --s-lg:16px; --s-xl:24px; --s-xxl:32px; --s-huge:64px;
+
+  --font:'Inter','Inter var',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  overflow-x:hidden;
+  background:var(--canvas);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:16px;
+  font-variation-settings:"wght" 460;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.container{max-width:1080px;margin:0 auto;padding:0 var(--s-xl)}
+
+/* ---------------- type scale ---------------- */
+.display-xxl{font-size:64px;font-variation-settings:"wght" 540;line-height:.96;letter-spacing:0;margin:0}
+.display-xl{font-size:48px;font-variation-settings:"wght" 460;line-height:.96;letter-spacing:-1.32px;margin:0}
+.display-lg{font-size:28px;font-variation-settings:"wght" 540;line-height:1.14;letter-spacing:-.63px;margin:0}
+.display-md{font-size:22px;font-variation-settings:"wght" 460;line-height:1.1;letter-spacing:-.315px;margin:0}
+.heading-lg{font-size:20px;font-variation-settings:"wght" 460;line-height:1.2;letter-spacing:-.4px;margin:0}
+.body-lg{font-size:18px;font-variation-settings:"wght" 540;line-height:1.5;letter-spacing:-.135px}
+.caption{font-size:14px;font-variation-settings:"wght" 460;line-height:1.4}
+.micro{font-size:12px;font-variation-settings:"wght" 540;line-height:1.4}
+
+/* ---------------- hero ---------------- */
+.hero{
+  background:var(--primary);
+  color:var(--on-primary);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 78% 8%, rgba(201,180,250,.34), transparent 62%),
+    radial-gradient(760px 480px at 95% 46%, rgba(120,170,255,.22), transparent 60%),
+    radial-gradient(620px 420px at 10% 92%, rgba(14,12,31,.75), transparent 65%);
+}
+.hero-inner{position:relative;padding:72px 0 56px}
+.eyebrow{
+  font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--on-dark-mute);margin:0 0 var(--s-lg)
+}
+.hero h1{max-width:17ch}
+.hero .lede{
+  color:var(--on-dark-mute);max-width:54ch;margin:var(--s-xl) 0 var(--s-xxl);
+  font-size:18px;font-variation-settings:"wght" 460;line-height:1.5
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:var(--font);font-size:16px;font-variation-settings:"wght" 700;line-height:1;
+  padding:12px 20px;border-radius:var(--r-md);border:1px solid transparent;
+  cursor:pointer;text-decoration:none;transition:background .15s,color .15s,border-color .15s
+}
+.btn-pill{background:var(--violet-soft);color:var(--primary);border-radius:var(--r-full)}
+.btn-pill:hover{background:#d8c8ff}
+.btn-dark{background:var(--primary);color:var(--on-primary)}
+.btn-dark:hover{background:var(--primary-deep)}
+.btn-outline{background:var(--canvas);color:var(--ink);border-color:var(--hairline-dark)}
+.btn-outline:hover{background:var(--canvas-soft)}
+.btn-on-teal{background:var(--canvas);color:var(--teal-deep)}
+.btn-ghost-dark{
+  background:transparent;color:var(--on-dark-mute);border-color:var(--hairline-dark);
+  font-size:14px;font-variation-settings:"wght" 600;padding:10px 16px
+}
+.btn-ghost-dark:hover{color:var(--on-primary);border-color:var(--violet-soft)}
+.btn:focus-visible{outline:2px solid var(--violet-soft);outline-offset:3px}
+
+/* ---------------- console ---------------- */
+.console{
+  display:grid;grid-template-columns:200px 1fr;gap:var(--s-xxl);align-items:center;
+  border:1px solid var(--hairline-dark);border-radius:var(--r-lg);
+  padding:var(--s-xxl);background:rgba(14,12,31,.42);backdrop-filter:blur(2px)
+}
+@media(max-width:860px){.console{grid-template-columns:1fr;gap:var(--s-xl)}}
+.dial{position:relative;width:180px;height:180px;margin:0 auto}
+.dial svg{width:180px;height:180px;transform:rotate(-90deg)}
+.dial-read{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.dial-pct{font-size:42px;font-variation-settings:"wght" 540;line-height:1;letter-spacing:-1.2px;color:var(--on-primary)}
+.dial-lbl{font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-faint);margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:var(--s-lg)}
+.stat b{display:block;font-size:26px;font-variation-settings:"wght" 540;line-height:1.1;letter-spacing:-.5px}
+.stat span{display:block;font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dark-faint);margin-top:6px}
+.meter{height:6px;background:rgba(255,255,255,.14);border-radius:var(--r-full);overflow:hidden;margin-top:var(--s-xl)}
+.meter i{display:block;height:100%;width:0;background:var(--violet-soft);transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.tools{display:flex;gap:var(--s-sm);flex-wrap:wrap;margin-top:var(--s-xl)}
+
+/* ---------------- sections ---------------- */
+section{padding:var(--s-huge) 0}
+.sec-head{max-width:62ch;margin-bottom:var(--s-xxl)}
+.sec-head .display-xl{margin-bottom:var(--s-lg)}
+.sec-head p{color:var(--ink-mute);margin:0}
+.soft{background:var(--canvas-soft)}
+
+/* ---------------- stage rail ---------------- */
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--s-lg)}
+.stage{
+  background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-lg);
+  padding:var(--s-xl);display:flex;flex-direction:column
+}
+.stage .tagline{
+  font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);margin-bottom:var(--s-sm)
+}
+.stage h3{margin:0 0 var(--s-sm)}
+.stage p{color:var(--ink-mute);font-size:15px;margin:0 0 var(--s-lg)}
+.stage .milestone{
+  border-top:1px solid var(--hairline);padding-top:var(--s-md);margin-top:auto;
+  font-size:14px;color:var(--ink)
+}
+.stage .milestone b{font-variation-settings:"wght" 700}
+.stage .milestone em{display:block;font-style:normal;color:var(--ink-faint);font-size:12px;
+  font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.stage-meter{height:4px;background:var(--hairline);border-radius:var(--r-full);overflow:hidden;margin-top:var(--s-md)}
+.stage-meter i{display:block;height:100%;width:0;background:var(--primary);transition:width .4s}
+
+/* ---------------- filter pills ---------------- */
+.pills{display:flex;gap:var(--s-sm);flex-wrap:wrap;margin-bottom:var(--s-xl)}
+.pill{
+  background:var(--canvas);color:var(--ink);border:1px solid var(--hairline);
+  font-family:var(--font);font-size:14px;font-variation-settings:"wght" 600;line-height:1;
+  padding:8px 16px;border-radius:var(--r-full);cursor:pointer;transition:.15s
+}
+.pill:hover{border-color:var(--hairline-dark)}
+.pill[aria-pressed="true"]{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.pill:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+
+/* ---------------- modules ---------------- */
+.mod{
+  background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-lg);
+  margin-bottom:var(--s-md);overflow:hidden
+}
+.mod.build{border-color:var(--teal-mid)}
+.mod[hidden]{display:none}
+.mod-head{
+  display:grid;grid-template-columns:52px 1fr auto;gap:var(--s-lg);align-items:center;
+  padding:var(--s-xl);cursor:pointer;user-select:none;background:none;border:0;width:100%;
+  text-align:left;font-family:var(--font);color:inherit
+}
+.mod-head:focus-visible{outline:2px solid var(--primary);outline-offset:-3px}
+.mod-num{
+  font-size:14px;font-variation-settings:"wght" 600;color:var(--ink-mute);
+  border:1px solid var(--hairline);border-radius:var(--r-md);
+  height:36px;display:flex;align-items:center;justify-content:center
+}
+.mod.build .mod-num{border-color:var(--teal-mid);color:var(--teal-deep)}
+.mod.done .mod-num{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.mod.build.done .mod-num{background:var(--teal-deep);border-color:var(--teal-deep);color:#fff}
+.mod-title{font-size:22px;font-variation-settings:"wght" 460;line-height:1.15;letter-spacing:-.315px}
+.mod-sub{font-size:14px;color:var(--ink-mute);margin-top:6px}
+.mod-right{display:flex;align-items:center;gap:var(--s-lg)}
+.count{font-size:14px;font-variation-settings:"wght" 600;color:var(--ink-mute);white-space:nowrap}
+.ring{width:30px;height:30px;flex:0 0 30px;transform:rotate(-90deg)}
+.chev{color:var(--ink-faint);font-size:12px;transition:transform .2s}
+.mod.open .chev{transform:rotate(180deg)}
+.mod-body{display:none;padding:0 var(--s-xl) var(--s-xxl)}
+.mod.open .mod-body{display:block}
+.body-grid{display:grid;grid-template-columns:1fr 288px;gap:var(--s-xxl);
+  border-top:1px solid var(--hairline);padding-top:var(--s-xl)}
+@media(max-width:880px){.body-grid{grid-template-columns:1fr;gap:var(--s-xl)}
+  .mod-head{grid-template-columns:44px 1fr auto;padding:var(--s-lg)}
+  .mod-title{font-size:19px}}
+
+.code{
+  flex:0 0 auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-mute);
+  background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:var(--r-xs);
+  padding:2px 6px;margin-top:2px;white-space:nowrap;user-select:all
+}
+label.t input:checked~.code{color:var(--ink-faint);opacity:.6}
+.grpcode{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;
+  color:var(--ink-faint);font-variation-settings:"wght" 600;margin-left:var(--s-sm)
+}
+.finder{
+  display:flex;gap:var(--s-sm);flex-wrap:wrap;align-items:center;
+  background:var(--canvas-soft);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:var(--s-md) var(--s-lg);margin-bottom:var(--s-lg)
+}
+.finder label{font-size:14px;font-variation-settings:"wght" 600;color:var(--ink-mute)}
+.finder input{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;
+  padding:9px 12px;border:1px solid var(--hairline);border-radius:var(--r-sm);
+  background:var(--canvas);color:var(--ink);width:150px;text-transform:uppercase
+}
+.finder input:focus-visible{outline:2px solid var(--primary);outline-offset:1px}
+.finder .hit{font-size:14px;color:var(--ink-mute)}
+.finder .hit b{font-variation-settings:"wght" 700;color:var(--ink)}
+label.t.flash{background:var(--violet-soft)!important;transition:background .2s}
+.grouplbl{
+  font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);margin:var(--s-xl) 0 var(--s-sm)
+}
+.grouplbl:first-child{margin-top:0}
+ul.topics{list-style:none;margin:0;padding:0}
+label.t{
+  display:flex;gap:var(--s-md);align-items:flex-start;padding:7px var(--s-sm);
+  border-radius:var(--r-sm);cursor:pointer;transition:background .12s;font-size:16px;line-height:1.45
+}
+label.t:hover{background:var(--canvas-soft)}
+label.t input{
+  appearance:none;-webkit-appearance:none;flex:0 0 17px;width:17px;height:17px;margin-top:3px;
+  border:1px solid var(--hairline-dark);border-radius:var(--r-xs);background:var(--canvas);
+  cursor:pointer;position:relative
+}
+label.t input:checked{background:var(--primary);border-color:var(--primary)}
+.mod.build label.t input:checked{background:var(--teal-deep);border-color:var(--teal-deep)}
+label.t input:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)
+}
+label.t input:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+label.t input:checked+span{color:var(--ink-faint);text-decoration:line-through;text-decoration-color:var(--hairline)}
+
+aside.res{
+  background:var(--canvas-soft);border:1px solid var(--hairline);
+  border-radius:var(--r-md);padding:var(--s-xl);align-self:start
+}
+aside.res h5{
+  font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 var(--s-md)
+}
+aside.res a,aside.res .bk{
+  display:block;font-size:15px;line-height:1.35;padding:10px 0;
+  border-bottom:1px solid var(--hairline);color:var(--ink);text-decoration:none
+}
+aside.res a{text-decoration:underline;text-underline-offset:2px}
+aside.res a:hover{color:var(--primary);font-variation-settings:"wght" 540}
+aside.res a:last-child,aside.res .bk:last-child{border-bottom:0}
+aside.res em{
+  display:block;font-size:12px;font-variation-settings:"wght" 460;
+  color:var(--ink-mute);font-style:normal;margin-top:3px;text-decoration:none
+}
+
+/* ---------------- method cards ---------------- */
+.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s-lg)}
+.row-card{background:var(--canvas-soft);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s-xl)}
+.row-card.on-white{background:var(--canvas)}
+.row-card h4{margin:0 0 var(--s-sm);font-size:20px;font-variation-settings:"wght" 460;letter-spacing:-.4px;line-height:1.2}
+.row-card p{margin:0;color:var(--ink-mute);font-size:15px}
+.row-card .num{
+  font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);display:block;margin-bottom:var(--s-sm)
+}
+table.day{width:100%;border-collapse:collapse;margin-top:var(--s-lg)}
+table.day td{padding:var(--s-md) 0;border-bottom:1px solid var(--hairline);font-size:16px;vertical-align:top}
+table.day tr:last-child td{border-bottom:0}
+table.day td:first-child{
+  width:132px;color:var(--ink-mute);font-size:14px;font-variation-settings:"wght" 600
+}
+
+/* ---------------- teal band ---------------- */
+.teal{background:var(--teal-deep);color:var(--on-primary)}
+.teal-inner{padding:112px 0}
+.teal h2{max-width:20ch;margin:0 0 var(--s-xl)}
+.teal p{color:rgba(255,255,255,.7);max-width:52ch;margin:0 0 var(--s-xxl);font-size:18px;font-variation-settings:"wght" 460}
+.teal-stats{display:flex;gap:var(--s-huge);flex-wrap:wrap;margin-bottom:var(--s-xxl)}
+.teal-stats div b{display:block;font-size:28px;font-variation-settings:"wght" 540;letter-spacing:-.63px}
+.teal-stats div span{display:block;font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:6px}
+
+footer{background:var(--canvas);color:var(--ink-mute);padding:var(--s-huge) var(--s-xl)}
+footer .container{display:flex;justify-content:space-between;gap:var(--s-xl);flex-wrap:wrap;
+  font-size:14px;font-variation-settings:"wght" 460;padding:0}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--s-lg)}
+.lib-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:var(--s-xl)}
+.lib-card h4{margin:0 0 var(--s-xs);font-size:20px;font-variation-settings:"wght" 460;letter-spacing:-.4px;line-height:1.2}
+.lib-card>p{margin:0 0 var(--s-lg);color:var(--ink-mute);font-size:14px}
+.lib-card ul{list-style:none;margin:0;padding:0}
+.lib-card li{padding:10px 0;border-bottom:1px solid var(--hairline);font-size:15px;line-height:1.35}
+.lib-card li:last-child{border-bottom:0}
+.lib-card a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.lib-card a:hover{color:var(--primary);font-variation-settings:"wght" 540}
+.lib-card em{display:block;font-style:normal;font-size:13px;color:var(--ink-mute);margin-top:3px}
+.lib-card .nolink{color:var(--ink)}
+.warnbar{
+  background:var(--teal-deep);color:#fff;padding:var(--s-md) var(--s-xl);
+  font-size:14px;font-variation-settings:"wght" 540;text-align:center;line-height:1.4
+}
+/* ---------------- bill of materials ---------------- */
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--s-md);margin-bottom:var(--s-xl)}
+.stat-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s-lg)}
+.stat-card.bad{border-left:3px solid var(--teal-mid)}
+.stat-card.good{border-left:3px solid var(--primary)}
+.stat-card b{display:block;font-size:26px;font-variation-settings:"wght" 540;letter-spacing:-.6px;line-height:1.1;
+  font-variant-numeric:tabular-nums}
+.stat-card span{display:block;font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-faint);margin-top:6px}
+.stat-card em{display:block;font-style:normal;font-size:13px;color:var(--ink-mute);margin-top:var(--s-sm);line-height:1.4}
+
+.bgroup{background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-lg);margin-bottom:var(--s-md);overflow:hidden}
+.bgroup-head{display:grid;grid-template-columns:1fr auto;gap:var(--s-md);align-items:center;width:100%;
+  padding:var(--s-lg) var(--s-xl);cursor:pointer;background:none;border:0;text-align:left;font-family:var(--font);color:inherit}
+.bgroup-head:focus-visible{outline:2px solid var(--primary);outline-offset:-3px}
+.bgroup-head .t{font-size:19px;font-variation-settings:"wght" 460;letter-spacing:-.3px;line-height:1.2}
+.bgroup-head .s{font-size:13px;color:var(--ink-mute);margin-top:5px}
+.bgroup-head .amt{font-size:17px;font-variation-settings:"wght" 700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bgroup-body{display:none;padding:0 var(--s-xl) var(--s-xl)}
+.bgroup.open .bgroup-body{display:block}
+.bgroup.open{border-color:var(--hairline-dark)}
+
+.bsub{font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);margin:var(--s-xl) 0 var(--s-md);border-top:1px solid var(--hairline);padding-top:var(--s-md)}
+.bsub:first-child{margin-top:0;border-top:0;padding-top:0}
+
+.bitem{border:1px solid var(--hairline);border-radius:var(--r-md);padding:var(--s-lg);margin-bottom:var(--s-sm);
+  display:grid;grid-template-columns:1fr 232px;gap:var(--s-lg)}
+.bitem .nm{font-size:16px;font-variation-settings:"wght" 540;line-height:1.3}
+.bitem .rf{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:600;
+  color:var(--ink-mute);background:var(--canvas-soft);border:1px solid var(--hairline);
+  border-radius:var(--r-xs);padding:2px 6px;margin-right:var(--s-sm);user-select:all;white-space:nowrap}
+.bitem .sp{font-size:14px;color:var(--ink-mute);margin-top:var(--s-sm);line-height:1.45}
+.bitem .wn{font-size:14px;line-height:1.45;margin-top:var(--s-md);padding:var(--s-md);
+  background:var(--canvas-soft);border-left:3px solid var(--teal-mid);border-radius:var(--r-xs);color:var(--ink)}
+.bitem .wn b{font-variation-settings:"wght" 700}
+.bmeta{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-sm) var(--s-md);align-content:start}
+.bmeta div{min-width:0}
+.bmeta span{display:block;font-size:11px;font-variation-settings:"wght" 540;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-faint)}
+.bmeta b{display:block;font-size:14px;font-variation-settings:"wght" 540;margin-top:2px;
+  font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.bmeta .wide{grid-column:1 / -1}
+.bmeta .wide b{font-variation-settings:"wght" 460;font-size:13px;color:var(--ink-mute)}
+.btot{display:flex;justify-content:space-between;gap:var(--s-md);flex-wrap:wrap;align-items:baseline;
+  border-top:1px solid var(--hairline-dark);margin-top:var(--s-lg);padding-top:var(--s-md)}
+.btot .l{font-size:14px;font-variation-settings:"wght" 540;color:var(--ink-mute)}
+.btot .v{font-size:20px;font-variation-settings:"wght" 700;font-variant-numeric:tabular-nums}
+
+.find{background:var(--canvas);border:1px solid var(--hairline);border-radius:var(--r-md);
+  padding:var(--s-xl);margin-bottom:var(--s-md)}
+.find h4{margin:0 0 var(--s-sm);font-size:19px;font-variation-settings:"wght" 460;letter-spacing:-.3px;line-height:1.25}
+.find p{margin:0;color:var(--ink-mute);font-size:15px;line-height:1.55}
+.findsec{font-size:12px;font-variation-settings:"wght" 540;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-deep);margin:var(--s-xxl) 0 var(--s-md)}
+.findsec:first-child{margin-top:0}
+
+.cuts{width:100%;border-collapse:collapse;margin-top:var(--s-lg)}
+.cuts th{text-align:left;font-size:11px;font-variation-settings:"wght" 540;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-faint);padding:0 var(--s-md) var(--s-sm) 0;border-bottom:1px solid var(--hairline)}
+.cuts td{padding:var(--s-md) var(--s-md) var(--s-md) 0;border-bottom:1px solid var(--hairline);
+  font-size:15px;vertical-align:top;line-height:1.45}
+.cuts td.n{font-variation-settings:"wght" 700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cuts tr:last-child td{border-bottom:0}
+.cuts .note{font-size:13px;color:var(--ink-mute)}
+
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translate(-50%,16px);
+  background:var(--primary);color:var(--on-primary);
+  font-size:14px;font-variation-settings:"wght" 540;
+  padding:14px 22px;border-radius:var(--r-md);opacity:0;pointer-events:none;
+  transition:.22s;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.12)
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------------- mobile ---------------- */
+@media(max-width:900px){
+  .bitem{grid-template-columns:1fr;gap:var(--s-md)}
+  .bmeta{border-top:1px solid var(--hairline);padding-top:var(--s-md)}
+}
+@media(max-width:620px){
+  /* the module header stacks so the count and ring get their own row */
+  .mod-head{grid-template-columns:40px 1fr;row-gap:var(--s-md);padding:var(--s-lg)}
+  .mod-right{grid-column:1 / -1;justify-content:space-between;gap:var(--s-md)}
+  .mod-body{padding:0 var(--s-lg) var(--s-xl)}
+  /* touch targets at the 44px minimum */
+  .btn,.pill,button.tool{min-height:44px}
+  .finder input{min-height:44px;padding:11px 12px}
+  /* the library grid must fit the narrowest phones */
+  .lib{grid-template-columns:1fr}
+  .lib-card{padding:var(--s-lg)}
+  .btn-ghost-dark{padding:12px 16px}
+  .pill{padding:11px 16px}
+  .bgroup-head{grid-template-columns:1fr;gap:var(--s-sm);padding:var(--s-lg)}
+  .bgroup-head .amt{font-size:19px}
+  .bgroup-body{padding:0 var(--s-lg) var(--s-lg)}
+  .bitem{padding:var(--s-md)}
+  .bmeta{grid-template-columns:1fr 1fr}
+  /* the cut table becomes stacked rows */
+  .cuts thead{display:none}
+  .cuts,.cuts tbody,.cuts tr,.cuts td{display:block;width:100%}
+  .cuts tr{border-bottom:1px solid var(--hairline);padding:var(--s-md) 0}
+  .cuts tr:last-child{border-bottom:0}
+  .cuts td{border-bottom:0;padding:2px 0}
+  .cuts td.n::before{content:attr(data-l) " ";font-variation-settings:"wght" 540;
+    color:var(--ink-faint);font-size:12px;letter-spacing:.07em;text-transform:uppercase}
+  table.day td{display:block;width:100%;border-bottom:0;padding:2px 0}
+  table.day tr{display:block;border-bottom:1px solid var(--hairline);padding:var(--s-md) 0}
+  table.day tr:last-child{border-bottom:0}
+  table.day td:first-child{width:auto;color:var(--ink-faint);font-size:12px;
+    letter-spacing:.07em;text-transform:uppercase}
+  /* a tap target you can actually hit */
+  label.t{padding:11px var(--s-sm);gap:var(--s-md)}
+  label.t input{flex:0 0 20px;width:20px;height:20px;margin-top:1px}
+  .finder{flex-direction:column;align-items:stretch}
+  .finder input{width:100%}
+  .stat-card b{font-size:23px}
+}
+@media(max-width:768px){
+  .display-xxl{font-size:36px;letter-spacing:-.6px}
+  .display-xl{font-size:30px;letter-spacing:-.8px}
+  .display-lg{font-size:24px}
+  .hero-inner{padding:48px 0 40px}
+  .teal-inner{padding:64px 0}
+  section{padding:48px 0}
+  .container{padding:0 var(--s-lg)}
+  .console{padding:var(--s-xl)}
+  .teal-stats{gap:var(--s-xxl)}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.tools,.pills,.hero::before{display:none}.mod-body{display:block!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ MACHINE-READABLE CONTEXT FOR AI ASSISTANTS ============ -->
+<script type="application/json" id="plan-context">
+{
+  "document_type": "personal study and build tracker",
+  "owner_profile": {
+    "role": "founder and CEO of a geospatial deep-tech startup",
+    "location": "Gujarat, India",
+    "business": "using satellite data, building satellites, and building GeoAI software",
+    "existing_knowledge": "some GIS; little else",
+    "coding_stance": "does not intend to write code by hand; uses AI for implementation. Priority is system design and architecture."
+  },
+  "goal": "In 18 months: design the full system for a satellite-data and GeoAI product, judge engineers' work with authority, and build and fly a returning stratospheric balloon payload personally.",
+  "time_budget": {
+    "days_per_week": 7,
+    "hours_per_day": 2,
+    "lighter_day": "one day per week is 1 hour of review and building only, no new topics",
+    "total_hours_approx": 810,
+    "split_per_session": "60 min learn, 45 min build or practise, 15 min review"
+  },
+  "learning_method": [
+    "Big picture before details — learn how the whole system fits together first",
+    "Ask why until the answer is physics or a number, not industry convention",
+    "Every topic ends in something built or calculated",
+    "Explain it back in own words after each topic",
+    "Weekly spaced review of older topics",
+    "Study past failures to build judgement fast"
+  ],
+  "stages": [
+    {"stage":0,"months":"1","theme":"Foundations"},
+    {"stage":1,"months":"1-3","theme":"Orbits and mission design"},
+    {"stage":2,"months":"3-6","theme":"The three budgets: mass, power, link"},
+    {"stage":3,"months":"6-11","theme":"Subsystems: pointing, thermal, computer"},
+    {"stage":4,"months":"9-14","theme":"Payload, geospatial science, GeoAI"},
+    {"stage":5,"months":"12-18","theme":"Environment, test, operations, regulation, judgement"}
+  ],
+  "balloon_programme": {
+    "status": "concept, not final design",
+    "version_1": "camera, sensors, live telemetry and streaming from ~35 km, wings for controlled descent, propellers deployed below ~10 km for powered return to base",
+    "version_2": "flown ~2 months after v1; wide-area weather and imaging profile positioned as a reusable alternative to disposable radiosondes",
+    "after": "feeds directly into a CubeSat prototype design",
+    "physics_constraints_agreed": [
+      "Air at 35 km is ~150x thinner than sea level, so propellers produce ~1/150 of sea-level thrust and cannot provide meaningful thrust or attitude authority up there",
+      "Attitude control above ~10 km must use momentum/reaction wheel or aerodynamic control surfaces, the same technique a satellite uses",
+      "Winds at altitude can displace the payload 100-200 km during descent, so controlled descent, not powered cruise, does the main work of getting home"
+    ],
+    "regulatory": "DGCA permission for an unmanned free balloon with powered return; to be applied for near the end of the study period"
+  },
+  "hardware_on_hand": [
+    "Orange Pi 4 Pro 6GB with 3 TOPS NPU",
+    "Raspberry Pi Pico 2 W + LAFVIN development kit",
+    "Nooelec RTL-SDR v5 + SAWbird+ NOAA LNA + telescopic V-dipole",
+    "BNO085 9-DOF IMU",
+    "NEO-7M GPS modules",
+    "A2212 1000KV brushless motor + 30A ESC + propellers",
+    "MG996R servos",
+    "BPW34 photodiodes (sun sensing)",
+    "8-channel 24MHz logic analyser"
+  ],
+  "budget_inr": "500000 to 600000 across the 18 months, covering parts, test and flights",
+  "topic_codes": {
+    "format": "M<module number, 2 digits>-<group letter><item number, 2 digits>",
+    "example": "M14-C05 means module 14, third topic group, fifth topic in that group",
+    "group_letters": "A, B, C ... assigned in the order the groups appear within a module",
+    "count": 587,
+    "why": "The learner uses these codes to ask an AI to teach one specific topic. When given a code, resolve it against const MODULES: find the module by number, the group by letter position, and the item by its 1-based index, then teach that topic.",
+    "if_a_code_is_wrong": "If a code does not resolve, say so and name the nearest valid code in that module rather than guessing which topic was meant.",
+    "also_the_checkbox_id": "Each code is also the checkbox id, so an exported progress file lists completed topics by code in completed_topic_codes."
+  },
+  "bill_of_materials": {
+    "where": "const BOM in the main script block of this file, and rendered in the Bill of materials section.",
+    "covers": "96 costed line items for version 1 and version 2 of the balloon, plus the ground station, test bench, per-flight recurring costs and the permissions.",
+    "currency": "INR. Planning estimates, not quotations. Each line carries a price basis saying whether it is grounded in a named source or estimated.",
+    "headline": "Versions 1 and 2 as specified come to about 9.5 lakh against a stated budget of 5 to 6 lakh. Every cut on the list still leaves about 7 lakh. The option that fits is a shakedown flight plus version 1, with version 2 deferred, at about 6.06 lakh.",
+    "mass": "Each line carries a Flies column. The flying payload total is what sizes the balloon; version 1 currently comes to about 4,450 g, against the 1,300 g of a documented comparable glider flight.",
+    "how_to_use": [
+      "When asked about parts, costs or what to buy, answer from BOM rather than from general knowledge.",
+      "Treat every price as an estimate needing re-quotation unless its price basis names a source.",
+      "The findings in BOM.findings are corrections to the learner's stated design. Do not quietly drop them: the radio licence, the barometer range, the servo temperature rating and the propeller sizing each have a number attached.",
+      "If asked to add or change a line, give the change and say which total it moves. Do not recompute the whole programme from memory."
+    ]
+  },
+  "progress_storage": {
+    "where": "browser localStorage, not in this file",
+    "key": "geo-deeptech-plan-v1",
+    "format": "object mapping checkbox data-id to 1",
+    "data_id_format": "the topic code itself, e.g. M14-C05",
+    "how_to_share": "learner clicks 'Export progress' and shares the JSON"
+  },
+  "study_materials_and_sources": {
+    "where_they_are_in_this_file": {
+      "per_module": "const MODULES in the main script block. Every module has a res array; each entry is {n: name, e: what it is and how to use it, u: url} or {b: book title, e: note} for books, which have no url.",
+      "global_library": "const LIBRARY in the main script block, also rendered in the 'Study materials' section. Six groups: spine books, free courses, primary documents and standards, free data, software, and papers/archives/communities."
+    },
+    "source_types": ["book", "free course", "primary standard or handbook (usually a free PDF)", "open dataset", "free software", "paper archive or community"],
+    "how_to_use_them": [
+      "When teaching a module, fetch that module's res urls first and teach from the actual source rather than from memory.",
+      "Prefer the primary document over any summary of it: the NASA SoA report, CubeSat 101, the CubeSat Design Specification, GEVS, ECSS, CCSDS and OGC are all free and authoritative.",
+      "For any practical exercise, pull a real scene over Gujarat from the open data sources rather than using a toy dataset.",
+      "Books carry no url. Do not invent one. Quote sparingly and paraphrase; point the learner to the chapter instead of reproducing it.",
+      "If a url has moved or cannot be reached, say so plainly and suggest the nearest live equivalent rather than guessing a new address.",
+      "Links were assembled in October 2026 and were not all individually verified; treat a dead link as a stale link, not as evidence the resource is gone."
+    ]
+  },
+  "how_an_ai_should_help": [
+    "Teach from first principles with real numbers, not analogies alone",
+    "Use plain language; avoid jargon unless defining it",
+    "When the learner is wrong about physics, say so directly with the number",
+    "Connect every topic back to either the balloon build or the GeoAI product",
+    "Do not rewrite this plan wholesale; make surgical edits when asked"
+  ]
+}
+</script>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="container">
+      <p class="eyebrow">Solo track · Geospatial &amp; deep tech · Gujarat, India</p>
+      <h1 class="display-xxl">Know enough to <span style="color:var(--violet-soft)">challenge</span> the industry.</h1>
+      <p class="lede">Twenty-four modules in dependency order, merged from two courses and deepened — geospatial science, satellite engineering and GeoAI, with a stratospheric balloon built alongside. Tick topics as you learn them. Progress saves automatically.</p>
+
+      <div class="console">
+        <div class="dial">
+          <svg viewBox="0 0 180 180" aria-label="Overall progress">
+            <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="8"/>
+            <circle id="dialArc" cx="90" cy="90" r="78" fill="none" stroke="#c9b4fa" stroke-width="8"
+                    stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="490"/>
+          </svg>
+          <div class="dial-read">
+            <div class="dial-pct" id="pctText">0%</div>
+            <div class="dial-lbl">Complete</div>
+          </div>
+        </div>
+        <div>
+          <div class="stats">
+            <div class="stat"><b id="sDone">0</b><span>Done</span></div>
+            <div class="stat"><b id="sTotal">0</b><span>Total</span></div>
+            <div class="stat"><b id="sMods">0/24</b><span>Modules</span></div>
+            <div class="stat"><b id="sStage">0</b><span>Stage now</span></div>
+          </div>
+          <div class="meter"><i id="mainMeter"></i></div>
+          <div class="tools">
+            <button class="btn btn-pill" id="btnJump">Go to current module</button>
+            <button class="btn btn-ghost-dark" id="btnExport">Export progress</button>
+            <button class="btn btn-ghost-dark" id="btnImport">Import</button>
+            <button class="btn btn-ghost-dark" id="btnExpand">Expand all</button>
+            <button class="btn btn-ghost-dark" id="btnReset">Reset</button>
+            <input type="file" id="fileIn" accept="application/json" hidden>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="display-xl">The goal</h2>
+      <p class="body-lg" style="color:var(--ink)">In 18 months: design the full system for a satellite-data and GeoAI product, judge your engineers' work with authority, and build and fly a returning balloon payload yourself — with AI doing the coding.</p>
+    </div>
+    <div class="rows" id="method"></div>
+
+    <div style="margin-top:var(--s-huge);max-width:640px">
+      <h3 class="display-lg">The two hours</h3>
+      <table class="day">
+        <tr><td>60 minutes</td><td>Learn the topic — read, watch, or work through it with an AI tutor</td></tr>
+        <tr><td>45 minutes</td><td>Build, calculate, or test something with it</td></tr>
+        <tr><td>15 minutes</td><td>Explain it back in your own words, then review two older topics</td></tr>
+        <tr><td>Lighter day</td><td>One day a week: 1 hour of review and building only, no new topics</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="display-xl">Six stages</h2>
+      <p>Order is not arbitrary. Each stage is built on numbers established in the one before it, and each ends in something that flies, transmits, or computes.</p>
+    </div>
+    <div class="stages" id="stages"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="display-xl">Modules</h2>
+      <p>Every concept to study, plus where to learn it. Module 24 is the build track — its steps run alongside the studying, not after it.</p>
+    </div>
+    <div class="finder">
+      <label for="codeBox">Go to a topic code</label>
+      <input id="codeBox" placeholder="M14-C05" maxlength="9" autocomplete="off" spellcheck="false">
+      <span class="hit" id="codeHit">Codes read <b>M</b>odule &ndash; <b>G</b>roup letter &ndash; item. Give a code to any AI and ask it to teach that topic.</span>
+    </div>
+    <div class="pills" id="pills"></div>
+    <div id="modules"></div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="display-xl">Study materials</h2>
+      <p>The library behind the modules: the books worth owning, the free courses worth finishing, the primary documents to read instead of summaries, and the open data to practise on. Every module also carries its own source list under "Where to learn it".</p>
+    </div>
+    <div class="lib" id="library"></div>
+  </div>
+</section>
+
+<section class="soft" id="bom">
+  <div class="container">
+    <div class="sec-head">
+      <h2 class="display-xl">Bill of materials</h2>
+      <p>Everything needed to build version 1 and version 2 of the balloon, costed. Planning estimates in INR, not quotations — the few figures grounded in a named source say so in the price basis. The spreadsheet version is the one to edit and buy from; this is the same content, read-only.</p>
+    </div>
+
+    <div class="statrow" id="bomStats"></div>
+
+    <h3 class="display-lg" style="margin:var(--s-huge) 0 var(--s-lg)">What changes the BOM</h3>
+    <p style="color:var(--ink-mute);max-width:64ch;margin:0 0 var(--s-xl)">Read this before buying anything. Five of these would cost you a payload; one challenges version 1 as specified.</p>
+    <div id="bomFindings"></div>
+
+    <h3 class="display-lg" style="margin:var(--s-huge) 0 var(--s-lg)">The lines</h3>
+    <p style="color:var(--ink-mute);max-width:64ch;margin:0 0 var(--s-xl)">Ninety-six items across both versions, the ground station, the test bench, the per-flight costs and the permissions. Open a section to see its lines. Where an item carries a note, it is a failure mode or a reason the obvious part is the wrong one.</p>
+    <div id="bomSheets"></div>
+
+    <h3 class="display-lg" style="margin:var(--s-huge) 0 var(--s-lg)">Making it fit</h3>
+    <div id="bomFit"></div>
+  </div>
+</section>
+
+<section class="teal">
+  <div class="teal-inner">
+    <div class="container">
+      <div class="teal-stats">
+        <div><b id="tTotal">0</b><span>Topics and build steps</span></div>
+        <div><b>810</b><span>Study hours</span></div>
+        <div><b>24</b><span>Modules</span></div>
+        <div><b>2</b><span>Flights before the CubeSat</span></div>
+      </div>
+      <h2 class="display-lg">The balloon is not a hobby project. It is the cheapest honest rehearsal for everything the satellite will have to do.</h2>
+      <p>Pointing, power, thermal, link budget, onboard autonomy, recovery, paperwork — all of it, at 35 km, for the price of a laptop.</p>
+      <a class="btn btn-on-teal" href="#modules" id="tealCta">Open the build track</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span>Progress is saved in this browser only. Export a backup before switching devices.</span>
+    <span id="stamp"></span>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================================
+   PLAN DATA — safe for an AI to read and edit
+   ========================================================================= */
+
+const METHOD=[
+ {n:"Method 01",t:"Big picture first",d:"Learn how the whole system fits together before any detail. You are designing architecture, not components."},
+ {n:"Method 02",t:"Ask why to the bottom",d:"Keep asking until the answer is physics or a number. 'That's how the industry does it' is where most competitors stop."},
+ {n:"Method 03",t:"Build every week",d:"Every topic ends in something calculated, measured or soldered. Knowledge that never touched hardware is not judgement."},
+ {n:"Method 04",t:"Explain it back",d:"Say it in plain words with no jargon. If you cannot, you have not learned it — you have only read it."},
+ {n:"Method 05",t:"Review on a loop",d:"Fifteen minutes a day on older topics. Without it, month 3 is gone by month 9."},
+ {n:"Method 06",t:"Study failures",d:"Post-mortems of dead missions teach more per hour than any textbook. This is where engineering judgement actually comes from."}
+];
+
+const STAGES=[
+ {s:0,when:"Month 1",t:"Foundations",d:"The maths and physics you skipped, plus how a satellite system actually hangs together. One month, no shortcuts.",
+  ms:"Decode a live weather satellite with your RTL-SDR and V-dipole."},
+ {s:1,when:"Months 1–3",t:"Orbits &amp; mission design",d:"Everything downstream is designed against the orbit. Get it wrong and every later budget rests on a false assumption.",
+  ms:"Predict and log real passes; write your first mission requirement document."},
+ {s:2,when:"Months 3–6",t:"The three budgets",d:"Mass, power, link. This is the working language of satellite design, and where most founders get out-argued by their own engineers.",
+  ms:"Full power budget and link budget for your own payload, on paper, defended."},
+ {s:3,when:"Months 6–11",t:"Subsystems",d:"Pointing first — it is hardest and touches everything. Thermal after power, since heat follows electronics. Then the brain.",
+  ms:"Single-axis pointing demo: BNO085 plus a reaction wheel, holding an angle."},
+ {s:4,when:"Months 9–14",t:"Payload, data &amp; GeoAI",d:"Optics sets your resolution ceiling. Calibration makes imagery trustworthy. GeoAI is where your company actually earns money.",
+  ms:"A model running on the Orange Pi NPU, screening and georeferencing frames live."},
+ {s:5,when:"Months 12–18",t:"Reality layers",d:"Environment, test, reliability, operations, Indian regulation, and how to judge other people's engineering. These only make sense once you know what you are testing.",
+  ms:"Balloon flight 1, then flight 2 two months later, then the CubeSat design package."}
+];
+
+const MODULES=[
+
+/* ================= STAGE 0 ================= */
+{n:1,stage:0,title:"Maths &amp; physics warm-up",sub:"Month 1 · the floor everything stands on",
+ groups:[
+  {g:"Maths you will actually use",items:[
+   "Units, dimensional analysis, and sanity-checking any number you are given",
+   "Vectors: addition, dot product, cross product, and what each one means physically",
+   "Rotating a vector in 2D, then in 3D",
+   "Trigonometry for angles, pointing and field of view",
+   "Logarithms, and why the decibel scale exists",
+   "Exponential growth and decay",
+   "Derivatives as rates of change — reading them, not deriving them",
+   "Integrals as accumulated totals",
+   "Matrices and what multiplying by one does to a vector",
+   "Solving simultaneous equations",
+   "Reading and interpreting a log-scale graph"]},
+  {g:"Physics you will actually use",items:[
+   "Newton's three laws, stated precisely",
+   "Force, mass, acceleration, momentum",
+   "Work, energy and power — and why they are constantly confused",
+   "Circular motion and centripetal force",
+   "Gravity as an inverse-square law",
+   "Heat transfer: conduction, convection, radiation, and which exist in vacuum",
+   "Electricity: voltage, current, resistance, power, and energy stored",
+   "Waves: frequency, wavelength, speed, and how they relate",
+   "Pressure, density, and how both fall with altitude",
+   "The standard atmosphere model up to 40 km"]},
+  {g:"The estimation habit",items:[
+   "Order-of-magnitude (Fermi) estimation — the core CEO skill",
+   "Significant figures and false precision",
+   "Error bars, and propagating error through a calculation",
+   "Spotting a wrong number before you check it"]}
+ ],
+ res:[
+  {n:"Khan Academy — Physics and Linear Algebra",e:"Free, fast, exactly this level",u:"https://www.khanacademy.org/science/physics"},
+  {n:"3Blue1Brown — Essence of Linear Algebra",e:"Free video series; builds intuition for vectors and matrices",u:"https://www.3blue1brown.com/topics/linear-algebra"},
+  {n:"Engineering ToolBox — standard atmosphere",e:"Reference tables for pressure and density by altitude",u:"https://www.engineeringtoolbox.com/standard-atmosphere-d_604.html"}
+ ]},
+
+{n:2,stage:0,title:"How a satellite system hangs together",sub:"Month 1 · systems thinking before detail",
+ groups:[
+  {g:"The system, in one picture",items:[
+   "The seven subsystems and what each one owes the others",
+   "The payload is the mission; everything else exists to serve it",
+   "Why every subsystem fights over the same three things: mass, power, data",
+   "Interfaces as the real source of failure, not components",
+   "The difference between a requirement, a constraint and a wish",
+   "How one decision early (orbit, band, aperture) locks a dozen later ones"]},
+  {g:"First-principles habit",items:[
+   "Breaking any industry claim down to physics and a number",
+   "Separating a real constraint from an inherited convention",
+   "Asking 'what would have to be true for this to work?'",
+   "Real cost drivers in space hardware versus cost myths",
+   "Why 'space-grade' sometimes means necessary and sometimes means lazy"]},
+  {g:"Reading the field",items:[
+   "Reading a satellite mission datasheet and knowing what is missing from it",
+   "Reading a conference paper's method and results before its abstract",
+   "Telling a demo apart from a product"]}
+ ],
+ res:[
+  {n:"NASA CubeSat 101",e:"Free PDF — read cover to cover, twice",u:"https://www.nasa.gov/wp-content/uploads/2017/03/nasa_csli_cubesat_101_508.pdf"},
+  {n:"MIT OCW 16.851 — Satellite Engineering",e:"Free lecture notes for the whole system",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {n:"eoPortal mission database",e:"Look up any real Earth-observation mission's specs",u:"https://www.eoportal.org/"},
+  {b:"Wertz &amp; Larson — Space Mission Analysis and Design (SMAD)",e:"Book · the spine text for this whole plan"}
+ ]},
+
+/* ================= STAGE 1 ================= */
+{n:3,stage:1,title:"Orbital mechanics",sub:"Months 1–3 · the constraint behind every other number",
+ groups:[
+  {g:"Core mechanics",items:[
+   "Newton's law of gravitation and the two-body problem",
+   "Kepler's three laws",
+   "The vis-viva equation",
+   "Orbital velocity and orbital period",
+   "Escape velocity",
+   "Specific orbital energy and why it is conserved",
+   "Angular momentum in orbit"]},
+  {g:"The six orbital elements",items:[
+   "Semi-major axis (a)",
+   "Eccentricity (e)",
+   "Inclination (i)",
+   "Right ascension of the ascending node (RAAN)",
+   "Argument of perigee (ω)",
+   "True anomaly (ν)",
+   "Converting elements to position and velocity, and back"]},
+  {g:"Manoeuvres",items:[
+   "Delta-v budgeting",
+   "Hohmann transfer",
+   "Plane changes and why they are brutally expensive",
+   "Phasing manoeuvres",
+   "Station keeping and its lifetime cost"]},
+  {g:"Orbit types &amp; Earth-observation geometry",items:[
+   "LEO, MEO, GEO, HEO and when each is right",
+   "Polar orbits",
+   "Sun-synchronous orbit, and exactly why EO missions use it",
+   "Local time of descending node, and its effect on shadows and usability",
+   "Ground track calculation and repeat cycles",
+   "Revisit time versus swath width — the first real trade",
+   "Eclipse duration and beta angle"]},
+  {g:"Real orbits, not ideal ones",items:[
+   "J2 perturbation and nodal precession — the reason SSO exists at all",
+   "Atmospheric drag and orbital decay",
+   "Solar radiation pressure",
+   "Third-body effects from the Moon and Sun",
+   "Satellite lifetime estimation",
+   "TLE format, field by field",
+   "SGP4 propagation — and how fast its accuracy degrades"]}
+ ],
+ res:[
+  {n:"Braeunig — Rocket &amp; Space Technology",e:"Free orbital mechanics primer with worked maths",u:"http://www.braeunig.us/space/"},
+  {n:"CelesTrak",e:"TLEs, SGP4 documentation, orbit theory papers",u:"https://celestrak.org/"},
+  {n:"GMAT (NASA)",e:"Free mission analysis tool — install in week one",u:"https://sourceforge.net/projects/gmat/"},
+  {n:"Gpredict",e:"Free pass prediction and tracking",u:"http://gpredict.oz9aec.net/"},
+  {b:"Curtis — Orbital Mechanics for Engineering Students",e:"Book · the standard first text"}
+ ]},
+
+{n:4,stage:1,title:"Systems engineering &amp; mission design",sub:"Months 1–3 · how missions get planned and reviewed",
+ groups:[
+  {g:"Defining a mission",items:[
+   "Mission statement versus mission objectives",
+   "Concept of operations (CONOPS)",
+   "Writing a mission requirement document",
+   "Requirement types: functional, performance, interface, environmental",
+   "Writing a requirement that can actually be verified",
+   "Requirements traceability matrix",
+   "Verification methods: test, analysis, inspection, demonstration"]},
+  {g:"The process",items:[
+   "The V-model lifecycle",
+   "Review gates: MCR, PDR, CDR, TRR, FRR — what each one is for",
+   "Technology readiness levels 1–9, and how they get inflated",
+   "Trade studies and trade-off matrices",
+   "Margin policy for mass, power, data and schedule",
+   "Interface control documents",
+   "Work breakdown structure",
+   "Configuration management",
+   "Risk register and risk scoring"]},
+  {g:"Where programmes die",items:[
+   "Requirements creep and how to detect it early",
+   "The cost multiplier of a late change",
+   "Why 'we will fix it in software' fails in orbit",
+   "Single-person-dependency as a programme risk"]}
+ ],
+ res:[
+  {n:"MIT OCW 16.842 — Fundamentals of Systems Engineering",e:"Free full course built around the V-model",u:"https://ocw.mit.edu/courses/16-842-fundamentals-of-systems-engineering-fall-2015/"},
+  {n:"MIT OCW 16.83X — Space Systems Engineering",e:"Capstone-level mission design",u:"https://ocw.mit.edu/courses/16-83x-space-systems-engineering-spring-2002-spring-2003/"},
+  {n:"NASA CSLI resources hub",e:"Handbooks, ICDs, real programme documents",u:"https://www.nasa.gov/kennedy/launch-services-program/cubesat-launch-initiative/cubesat-launch-initiative-resources/"}
+ ]},
+
+/* ================= STAGE 2 ================= */
+{n:5,stage:2,title:"Mass budget &amp; structures",sub:"Months 3–6 · budget 1 of 3",
+ groups:[
+  {g:"Form factor &amp; standards",items:[
+   "CubeSat form factors: 1U, 3U, 6U, 12U",
+   "CubeSat Design Specification (Cal Poly) — read in full",
+   "Rail and tab tolerances for deployer compatibility",
+   "Centre of gravity requirements",
+   "Fit check with the deployer"]},
+  {g:"Budgeting",items:[
+   "Building a mass budget with margin allocation per maturity level",
+   "Mass properties: centre of gravity and moment of inertia tensor",
+   "Balancing a payload so pointing does not fight the structure"]},
+  {g:"Materials &amp; loads",items:[
+   "Aluminium 6061-T6 versus 7075; titanium; composites",
+   "Outgassing limits: ASTM E595, TML and CVCM",
+   "Quasi-static launch loads",
+   "Random vibration and PSD curves",
+   "Sine vibration and resonance",
+   "Acoustic loads",
+   "Shock events and their frequency content",
+   "Natural frequency requirement from the launch provider",
+   "Finite element analysis basics: modal and static",
+   "Factor of safety, and where it is conventionally set"]},
+  {g:"Mechanisms",items:[
+   "Deployables: hinges, burn-wire release, spring mechanisms",
+   "Fasteners, staking, torque specs and thread locking against vibration",
+   "Why mechanisms are the most common single point of failure"]}
+ ],
+ res:[
+  {n:"CubeSat Design Specification (Cal Poly)",e:"The rulebook — free PDF",u:"https://www.cubesat.org/cubesatinfo"},
+  {n:"NASA State of the Art — Small Spacecraft Technology",e:"Current hardware, updated yearly",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"FreeCAD",e:"Free CAD for structural modelling",u:"https://www.freecad.org/"},
+  {n:"Ansys Student",e:"Free FEA licence for learning",u:"https://www.ansys.com/academic/students"}
+ ]},
+
+{n:6,stage:2,title:"Power subsystem",sub:"Months 3–6 · budget 2 of 3",
+ groups:[
+  {g:"Generation",items:[
+   "Photovoltaic effect, I-V curve, fill factor",
+   "Triple-junction GaAs versus silicon cells",
+   "Solar array sizing and packing factor",
+   "Body-mounted versus deployable arrays",
+   "Sun incidence angle and cosine loss",
+   "Cell degradation from radiation across mission life"]},
+  {g:"Storage",items:[
+   "Li-ion versus LiPo chemistry and cell selection",
+   "Depth of discharge and cycle life",
+   "Battery sizing calculation from the eclipse load",
+   "Charge temperature limits — the tightest constraint on the satellite",
+   "Cell balancing and protection circuits"]},
+  {g:"Budget &amp; distribution",items:[
+   "Orbit-average power versus peak power",
+   "Duty cycles per operating mode",
+   "Energy balance across eclipse and sunlight",
+   "Direct energy transfer versus MPPT architecture",
+   "Power conditioning and distribution unit",
+   "DC-DC converters and efficiency at low load",
+   "Bus voltage selection",
+   "Latch-up protection and current limiting",
+   "Inhibit switches and the remove-before-flight pin",
+   "Grounding, return paths and why they bite late"]}
+ ],
+ res:[
+  {n:"NASA State of the Art — Power chapter",e:"Flight-proven components and real specs",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"MIT OCW 16.851 — Spacecraft Power Systems",e:"Free lecture PDF",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {b:"Patel — Spacecraft Power Systems",e:"Book · the dedicated reference"}
+ ]},
+
+{n:7,stage:2,title:"Communications &amp; link budget",sub:"Months 3–6 · budget 3 of 3",
+ groups:[
+  {g:"RF fundamentals",items:[
+   "Frequency, wavelength, polarisation",
+   "What modulation actually is",
+   "Bands and their trade-offs: VHF, UHF, S, X, Ka",
+   "Free space path loss, derived not memorised",
+   "Antenna gain, beamwidth and the gain-coverage trade",
+   "Noise temperature and noise figure",
+   "Doppler shift and Doppler correction"]},
+  {g:"The link budget",items:[
+   "EIRP",
+   "G/T of a ground station",
+   "C/N0 and Eb/N0",
+   "Required link margin and how it is justified",
+   "Building a complete link budget end to end",
+   "Data volume per pass",
+   "Pass duration versus elevation mask",
+   "The downlink bottleneck, and what it forces on payload design"]},
+  {g:"Hardware &amp; coding",items:[
+   "Antenna types: dipole, turnstile, patch, helical, parabolic",
+   "Modulation schemes: BPSK, QPSK, GMSK, FSK",
+   "Forward error correction: Reed-Solomon",
+   "Convolutional coding and Viterbi decoding",
+   "Turbo and LDPC codes",
+   "Protocols: AX.25, CCSDS, CubeSat Space Protocol",
+   "TT&amp;C architecture and beacon design",
+   "Command authentication and why unauthenticated uplink is negligence"]}
+ ],
+ res:[
+  {n:"GNU Radio",e:"Free SDR toolkit — pairs with your RTL-SDR",u:"https://www.gnuradio.org/"},
+  {n:"SatDump",e:"Decodes live weather-satellite imagery",u:"https://www.satdump.org/"},
+  {n:"RTL-SDR Blog guides",e:"Practical tutorials for receiving satellites",u:"https://www.rtl-sdr.com/"},
+  {n:"AMSAT",e:"Amateur satellite community, frequencies, hardware",u:"https://www.amsat.org/"},
+  {b:"Maral &amp; Bousquet — Satellite Communications Systems",e:"Book · link budget maths done properly"}
+ ]},
+
+/* ================= STAGE 3 ================= */
+{n:8,stage:3,title:"Attitude determination &amp; control",sub:"Months 6–11 · the hardest subsystem, and your balloon needs it too",
+ groups:[
+  {g:"Maths you cannot skip",items:[
+   "Reference frames: ECI, ECEF, LVLH, body frame",
+   "Rotation matrices",
+   "Euler angles and gimbal lock",
+   "Quaternions — what flight software actually uses",
+   "Moment of inertia tensor",
+   "Euler's rotational equations",
+   "Angular momentum and why it is conserved, not created"]},
+  {g:"Sensors",items:[
+   "Coarse and fine sun sensors (your BPW34 photodiodes)",
+   "Magnetometers",
+   "MEMS gyroscope drift and bias characterisation",
+   "Star trackers and star pattern matching",
+   "GPS receivers in space and COCOM limits",
+   "Earth horizon sensors",
+   "Sensor fusion: why no single sensor is trusted alone"]},
+  {g:"Actuators",items:[
+   "Reaction wheels: momentum storage, saturation, desaturation",
+   "Magnetorquers: torque rods, coils, dipole moment sizing",
+   "Momentum wheels versus reaction wheels",
+   "Cold gas and electric propulsion basics",
+   "Why propellers produce almost no thrust above 30 km, and nothing in vacuum",
+   "Aerodynamic control surfaces — where they work and where they stop working"]},
+  {g:"Algorithms",items:[
+   "Attitude determination: TRIAD",
+   "Attitude determination: QUEST",
+   "Kalman filter, conceptually and then concretely",
+   "Extended Kalman filter",
+   "PID control",
+   "LQR control",
+   "B-dot detumbling",
+   "Pointing modes: nadir, sun, target tracking, slew"]},
+  {g:"Performance &amp; disturbance",items:[
+   "Pointing accuracy, knowledge and stability — three different numbers",
+   "Jitter and its direct effect on image quality",
+   "Gravity gradient torque",
+   "Aerodynamic torque",
+   "Solar radiation torque",
+   "Residual magnetic dipole torque",
+   "Budgeting a pointing error from all sources"]}
+ ],
+ res:[
+  {n:"MIT OCW 16.851 — ADCS lecture notes",e:"Free PDF, well-structured introduction",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {n:"NASA State of the Art — GNC chapter",e:"Flight-proven ADCS hardware by class",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"SmallSat Conference proceedings",e:"Free papers — search 'ADCS' for real designs",u:"https://digitalcommons.usu.edu/smallsat/"},
+  {b:"Markley &amp; Crassidis — Spacecraft Attitude Determination and Control",e:"Book · the definitive text"}
+ ]},
+
+{n:9,stage:3,title:"Thermal control",sub:"Months 6–11 · no air means no convection",
+ groups:[
+  {g:"Physics",items:[
+   "Heat transfer in vacuum: conduction and radiation only",
+   "Stefan-Boltzmann law",
+   "Emissivity and absorptivity",
+   "The α/ε ratio and how surfaces are selected by it",
+   "Solar flux (1361 W/m²), Earth albedo and Earth infrared",
+   "Thermal balance equation and equilibrium temperature",
+   "Hot case and cold case analysis"]},
+  {g:"Design",items:[
+   "Operational versus survival temperature limits per component",
+   "Multi-layer insulation",
+   "Coatings, paints and tapes",
+   "Radiators and their sizing",
+   "Heaters and thermostats, and their power cost",
+   "Heat pipes",
+   "Thermal interface materials, straps and conductive paths",
+   "Battery thermal management — usually the binding constraint",
+   "Thermal cycling and fatigue across thousands of orbits",
+   "Nodal thermal modelling",
+   "The stratosphere case: −60 °C at 1% pressure, and why it is a genuine rehearsal"]}
+ ],
+ res:[
+  {n:"NASA State of the Art — Thermal Control chapter",e:"Current thermal hardware for smallsats",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"MIT OCW 16.851 — Environment of Space",e:"Free PDF covering the thermal environment",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {b:"Gilmore — Spacecraft Thermal Control Handbook",e:"Book · industry standard reference"}
+ ]},
+
+{n:10,stage:3,title:"Onboard computer &amp; flight software",sub:"Months 6–11 · the brain you must be able to review",
+ groups:[
+  {g:"Hardware",items:[
+   "Microcontrollers versus systems-on-chip",
+   "ARM Cortex-M versus Cortex-A, and which job each suits",
+   "COTS versus rad-tolerant versus rad-hard parts, and the honest cost difference",
+   "Data buses: I2C, SPI, UART, CAN — and failure modes of each",
+   "Watchdog timers and reset architecture",
+   "Memory: SRAM, Flash, FRAM",
+   "Error detection and correction, and memory scrubbing"]},
+  {g:"Software",items:[
+   "What a real-time operating system guarantees",
+   "FreeRTOS and RTEMS",
+   "Bare metal versus RTOS trade-off",
+   "Bootloader design and over-the-air software update",
+   "Telemetry frame design",
+   "Housekeeping data: what to log and at what rate",
+   "Command handling and validation",
+   "Time-tagged commands",
+   "Fault detection, isolation and recovery",
+   "Safe mode design and autonomous recovery",
+   "Onboard data storage and file management",
+   "Time synchronisation across subsystems"]},
+  {g:"Verification",items:[
+   "Unit testing for flight software",
+   "Hardware-in-the-loop testing",
+   "Day-in-the-life runs",
+   "Fault injection testing",
+   "Reviewing software you did not write — what to actually look at"]}
+ ],
+ res:[
+  {n:"FreeRTOS documentation",e:"Free RTOS with excellent tutorials",u:"https://www.freertos.org/"},
+  {n:"NASA State of the Art — Avionics chapter",e:"Flight computers actually used on smallsats",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"NASA Power of Ten rules",e:"Rules for safety-critical code — a review checklist",u:"https://ntrs.nasa.gov/citations/20080039927"}
+ ]},
+
+/* ================= STAGE 4 ================= */
+{n:11,stage:4,title:"Optical payload",sub:"Months 9–14 · this sets your resolution ceiling forever",
+ groups:[
+  {g:"Optics",items:[
+   "Focal length, f-number, field of view",
+   "The diffraction limit and the Rayleigh criterion",
+   "Aperture diameter versus ground sample distance — memorise this relationship",
+   "Telescope designs: refractive, Cassegrain, Ritchey-Chrétien, three-mirror anastigmat",
+   "Aberrations: spherical, coma, astigmatism, chromatic",
+   "Modulation transfer function",
+   "Stray light control and baffling",
+   "Focus mechanism and thermal focus drift"]},
+  {g:"Detector",items:[
+   "CCD versus CMOS sensors",
+   "Time delay integration",
+   "Push-broom versus whisk-broom versus frame imaging",
+   "Pixel pitch, well depth, quantum efficiency",
+   "Signal-to-noise ratio and radiometric sensitivity",
+   "Integration time and image smear — ties straight back to pointing stability",
+   "Spectral bands, filters and bandpass selection",
+   "Panchromatic versus multispectral, and pansharpening"]},
+  {g:"The central trade",items:[
+   "Resolution versus swath versus data rate — pick two",
+   "Why a sharper camera can make a worse product",
+   "What resolution your clients actually need, versus what they ask for"]}
+ ],
+ res:[
+  {n:"MIT OCW 16.851 — Optics lectures",e:"Free PDFs with a real optical satellite case study",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {n:"eoPortal — mission database",e:"Look up real EO payload specifications",u:"https://www.eoportal.org/"},
+  {b:"Schott — Remote Sensing: The Image Chain Approach",e:"Book · links optics to final image quality"}
+ ]},
+
+{n:12,stage:4,title:"Remote sensing &amp; calibration",sub:"Months 9–14 · what makes imagery trustworthy",
+ groups:[
+  {g:"Fundamentals",items:[
+   "Electromagnetic spectrum and atmospheric windows",
+   "Spectral signatures: vegetation, water, soil, urban surfaces",
+   "Digital number versus radiance versus reflectance",
+   "The four resolutions — spatial, spectral, temporal, radiometric — and their trade-offs",
+   "Why you cannot improve one without paying in another"]},
+  {g:"Sensors &amp; missions",items:[
+   "Landsat programme and its archive",
+   "Sentinel-2 and the Copernicus programme",
+   "MODIS and coarse-resolution daily data",
+   "Thermal infrared sensors and land surface temperature",
+   "Synthetic aperture radar basics, and when radar beats optical",
+   "Hyperspectral sensing and where it genuinely pays"]},
+  {g:"The calibration chain",items:[
+   "Dark current and dark frame correction",
+   "Flat fielding",
+   "Gain and offset calibration",
+   "DN to radiance to reflectance conversion",
+   "Thermal band conversion to surface temperature",
+   "Geometric calibration and distortion correction",
+   "Georeferencing and orthorectification with a DEM",
+   "Atmospheric correction: dark object subtraction, 6S, MODTRAN",
+   "Vicarious calibration and ground truthing",
+   "Why uncalibrated imagery is worthless to a serious client"]},
+  {g:"Products &amp; delivery",items:[
+   "Processing levels L0, L1A, L1B, L1C, L2A",
+   "Cloud masking, and the ways cloud masks fail",
+   "Band math and indices: NDVI, NDWI, NDBI",
+   "Image compression: JPEG2000 and CCSDS 122",
+   "Formats: GeoTIFF, Cloud Optimized GeoTIFF, HDF5, NetCDF",
+   "Metadata standards and STAC catalogues"]}
+ ],
+ res:[
+  {n:"NASA ARSET training",e:"Free structured remote sensing courses with certificates",u:"https://appliedsciences.nasa.gov/arset"},
+  {n:"ESA SNAP toolbox",e:"Free — process raw Sentinel data end to end",u:"https://step.esa.int/main/toolboxes/snap/"},
+  {n:"Copernicus Data Space",e:"Free Sentinel data including raw levels",u:"https://dataspace.copernicus.eu/"},
+  {n:"USGS Landsat missions",e:"Calibration documents and data user handbooks",u:"https://www.usgs.gov/landsat-missions"},
+  {b:"Lillesand — Remote Sensing and Image Interpretation",e:"Book · the standard course text"}
+ ]},
+
+{n:13,stage:4,title:"Geospatial core — data models &amp; coordinates",sub:"Months 9–14 · deeper than any GIS course goes",
+ groups:[
+  {g:"Data models",items:[
+   "Vector data: points, lines, polygons",
+   "Topology, and the specific ways it breaks",
+   "Geometry validity: self-intersections, slivers, unclosed rings",
+   "Raster data: grid cells, pixel values, nodata",
+   "Attribute tables and linking non-spatial data to features",
+   "Vector versus raster — the real trade, not the textbook one",
+   "Simple Features standard and why interoperability keeps failing",
+   "Point clouds and when they are the right model"]},
+  {g:"Coordinate systems, properly",items:[
+   "The shape of the Earth: geoid versus ellipsoid",
+   "What a datum actually defines",
+   "WGS84, ITRF, GDA2020 and the Indian datums",
+   "Plate motion: why a datum drifts with the continent",
+   "Geographic versus projected coordinate systems",
+   "Map projections and what each one distorts — area, angle, distance",
+   "UTM and MGA zones; zone-edge problems",
+   "EPSG codes and the EPSG registry",
+   "Conversion versus transformation — not the same operation",
+   "Seven-parameter transformations and grid-shift files",
+   "Accuracy lost at each step of a transformation chain",
+   "Vertical datums, orthometric height versus ellipsoidal height"]},
+  {g:"Judgement",items:[
+   "How a 2 cm survey error becomes a 2 m error downstream",
+   "Silent CRS mismatch — the single most common bug in geospatial software",
+   "Why 'it lines up on the screen' proves nothing",
+   "Choosing a CRS for a national-scale product in India"]}
+ ],
+ res:[
+  {n:"EPSG Geodetic Parameter Registry",e:"The authoritative CRS reference",u:"https://epsg.org/"},
+  {n:"PROJ documentation",e:"How transformations are actually computed",u:"https://proj.org/"},
+  {n:"QGIS",e:"Free GIS — do every exercise here",u:"https://qgis.org"},
+  {n:"Spatial Thoughts tutorials",e:"Free, high-quality, India-based QGIS and Python training",u:"https://spatialthoughts.com/"},
+  {b:"Iliffe &amp; Lott — Datums and Map Projections",e:"Book · the serious treatment of datums"}
+ ]},
+
+{n:14,stage:4,title:"Geospatial analysis — the arguments you must win",sub:"Months 9–14 · where most of the industry is sloppy",
+ groups:[
+  {g:"Vector operations",items:[
+   "Buffer analysis",
+   "Spatial joins",
+   "Attribute joins by ID",
+   "Clipping and intersection",
+   "Union and dissolve",
+   "Spatial predicates: contains, within, intersects, touches, overlaps",
+   "Planar versus geodesic distance and area",
+   "Why buffering in degrees is almost always wrong",
+   "Geocoding, and how its error is distributed"]},
+  {g:"Raster analysis",items:[
+   "Band math fundamentals",
+   "NDVI, and exactly why it saturates over dense canopy",
+   "NDWI, NDBI, EVI, SAVI — what each one was invented to fix",
+   "Supervised versus unsupervised classification",
+   "Classification accuracy assessment and the confusion matrix",
+   "Zonal statistics: extracting raster values per polygon",
+   "Resampling methods — nearest, bilinear, cubic — and when each is wrong",
+   "Reprojecting a raster, and the error it introduces every time",
+   "Mosaicking and seamline artefacts"]},
+  {g:"Spatial statistics",items:[
+   "Spatial autocorrelation, conceptually",
+   "Tobler's first law and its limits",
+   "Spatial weights matrices — and how the choice changes the answer",
+   "Global Moran's I",
+   "Local Moran's I and LISA hotspot mapping",
+   "Getis-Ord Gi* hotspots",
+   "Multiple testing, and why some hotspots are pure noise",
+   "P-values and what they do not mean",
+   "Presenting a hotspot map honestly to a client"]},
+  {g:"Geostatistics",items:[
+   "Interpolation compared: IDW, spline, natural neighbour",
+   "The variogram and what it encodes",
+   "Kriging and its assumptions",
+   "Kriging variance as an uncertainty map",
+   "Cross-validation of an interpolated surface",
+   "When interpolation lies, and how to show that it might be"]},
+  {g:"Scale, integration &amp; fallacies",items:[
+   "The modifiable areal unit problem",
+   "The ecological fallacy",
+   "Mixing 1 km and 30 m data — the industry's most common silent error",
+   "Resampling versus aggregation, and which direction is defensible",
+   "Census geography, boundaries and their effects",
+   "Bivariate and quadrant analysis",
+   "Correlation versus causation in spatial data",
+   "Data validation and ground-truthing a result before it reaches a client"]}
+ ],
+ res:[
+  {n:"PySAL",e:"Free spatial analysis library with excellent documentation",u:"https://pysal.org/"},
+  {n:"GeoDa",e:"Free point-and-click spatial statistics — best for building intuition",u:"https://geodacenter.github.io/"},
+  {n:"Geographic Data Science with Python",e:"Free online book, rigorous and practical",u:"https://geographicdata.science/book/"},
+  {n:"Geocomputation with R",e:"Free online book; strong on spatial operations",u:"https://r.geocompx.org/"},
+  {n:"GDAL",e:"The engine under almost every geospatial tool",u:"https://gdal.org/"}
+ ]},
+
+{n:15,stage:4,title:"GeoAI",sub:"Months 9–14 · where the company actually earns",
+ groups:[
+  {g:"Foundations, honestly",items:[
+   "What a model actually learns, and what it cannot",
+   "Training, validation and test splits",
+   "Overfitting and how it hides",
+   "Loss functions and what they optimise for",
+   "Why overall accuracy is a misleading headline metric"]},
+  {g:"Vision for Earth observation",items:[
+   "Convolutional networks, conceptually",
+   "Classification versus detection versus segmentation",
+   "U-Net and land cover segmentation",
+   "Vision transformers for imagery",
+   "Foundation models for EO and what they change",
+   "Time series models and change detection",
+   "Multi-sensor fusion: optical with radar"]},
+  {g:"Data is the real work",items:[
+   "Labelling strategy, cost and quality control",
+   "Class imbalance in Earth observation data",
+   "Label noise and its effect on reported accuracy",
+   "Augmentation that is valid for satellite imagery, and what is not",
+   "Domain shift — why a model trained on Europe fails over Gujarat",
+   "Building a defensible training set for Indian conditions"]},
+  {g:"Evaluation &amp; honesty",items:[
+   "Confusion matrix, precision, recall, F1",
+   "Intersection over union",
+   "Spatial cross-validation, and why random splits inflate every score",
+   "Uncertainty estimation and calibrated confidence",
+   "Explaining a model's output to a non-technical client",
+   "Benchmark inflation in published EO AI results"]},
+  {g:"Deployment",items:[
+   "Model size versus accuracy versus inference cost",
+   "Monitoring drift in production",
+   "Retraining cadence and data versioning",
+   "When a simple index beats a neural network — and admitting it"]}
+ ],
+ res:[
+  {n:"TorchGeo",e:"Free library: EO datasets, models and samplers",u:"https://torchgeo.readthedocs.io/"},
+  {n:"NASA ARSET — machine learning modules",e:"Free applied training for EO machine learning",u:"https://appliedsciences.nasa.gov/arset"},
+  {n:"Awesome Satellite Imagery Datasets / Deep Learning",e:"Curated list of EO datasets and methods",u:"https://github.com/satellite-image-deep-learning/techniques"},
+  {n:"Google Earth Engine",e:"Free for research; fastest way to test ideas at scale",u:"https://earthengine.google.com/"}
+ ]},
+
+{n:16,stage:4,title:"Edge AI on the payload",sub:"Months 9–14 · the thinking moves into the sky",
+ groups:[
+  {g:"Why onboard at all",items:[
+   "The downlink bottleneck, quantified for your own link budget",
+   "Sending decisions instead of pixels",
+   "Latency when an alert actually matters",
+   "What must stay on the ground, and why"]},
+  {g:"Hardware reality",items:[
+   "NPUs and TOPS — what the number means and what it hides",
+   "Your Orange Pi 4 Pro NPU: real throughput versus the headline figure",
+   "Power per inference, and its place in the power budget",
+   "Thermal limits on sustained compute in a sealed box",
+   "Memory bandwidth as the usual true bottleneck"]},
+  {g:"Making models fit",items:[
+   "Quantisation to INT8 and the accuracy you lose",
+   "Pruning",
+   "Knowledge distillation",
+   "Model formats and runtimes: ONNX, TFLite, vendor NPU toolchains",
+   "Benchmarking a model on the actual board, not the datasheet"]},
+  {g:"The onboard pipeline",items:[
+   "Cloud screening before anything is stored",
+   "Georeferencing each frame live from GPS and attitude",
+   "Onboard mosaicking of overlapping frames",
+   "Event detection and compact alert messages",
+   "Store-and-forward when the link drops",
+   "Autonomy: retasking the camera from what the model just saw",
+   "Prioritising what to downlink when the pass is short"]},
+  {g:"Verification",items:[
+   "Testing a model you cannot easily patch after launch",
+   "Golden test images and regression testing",
+   "Graceful fallback when the model fails or disagrees with itself"]}
+ ],
+ res:[
+  {n:"ONNX Runtime",e:"Cross-platform inference, including edge targets",u:"https://onnxruntime.ai/"},
+  {n:"ESA Φ-sat and onboard AI missions",e:"The first flown onboard-AI EO payloads",u:"https://www.esa.int/Applications/Observing_the_Earth/Ph-sat"},
+  {n:"SmallSat Conference proceedings",e:"Search 'onboard processing' for real architectures",u:"https://digitalcommons.usu.edu/smallsat/"}
+ ]},
+
+{n:17,stage:4,title:"Geospatial software architecture",sub:"Months 9–14 · the diagram you will draw a hundred times",
+ groups:[
+  {g:"Data flow",items:[
+   "Ingest, process, store, serve, visualise — the five stages",
+   "Batch versus streaming processing",
+   "Pipeline orchestration concepts",
+   "Idempotency and reprocessing without corrupting history"]},
+  {g:"Storage",items:[
+   "Object storage and Cloud Optimized GeoTIFF",
+   "Tiling schemes and overview pyramids",
+   "Spatial databases and spatial indexes: R-tree, quadtree",
+   "Discrete global grids: H3 and S2",
+   "Partitioning data by space and by time",
+   "Cost per terabyte, and what a careless design costs per year"]},
+  {g:"Serving",items:[
+   "Tile servers and tile caching",
+   "OGC services: WMS, WFS, WMTS",
+   "STAC APIs for search and discovery",
+   "Vector tiles versus GeoJSON — and when each breaks",
+   "Web mapping clients: Leaflet and MapLibre",
+   "Designing an API your clients can actually build on"]},
+  {g:"Scale &amp; quality",items:[
+   "What breaks at ten times the data, and at a hundred",
+   "Caching strategy",
+   "Multi-tenant design for multiple clients",
+   "Data validation gates between pipeline stages",
+   "Provenance: proving where a number came from",
+   "Versioning data, models and outputs together"]}
+ ],
+ res:[
+  {n:"STAC specification",e:"The de facto catalogue standard for EO data",u:"https://stacspec.org/"},
+  {n:"PostGIS documentation",e:"The reference spatial database",u:"https://postgis.net/documentation/"},
+  {n:"H3 by Uber",e:"Hexagonal global grid — read the design rationale",u:"https://h3geo.org/"},
+  {n:"MapLibre",e:"Open-source vector tile mapping client",u:"https://maplibre.org/"},
+  {n:"Cloud Optimized GeoTIFF",e:"Why cloud-native raster changed the architecture",u:"https://cogeo.org/"}
+ ]},
+
+/* ================= STAGE 5 ================= */
+{n:18,stage:5,title:"Space &amp; stratosphere environment",sub:"Months 12–18 · what tries to kill the hardware",
+ groups:[
+  {g:"Vacuum",items:[
+   "Outgassing and material selection",
+   "Cold welding",
+   "Lubricant behaviour in vacuum"]},
+  {g:"Radiation",items:[
+   "Van Allen trapped radiation belts",
+   "Solar particle events and galactic cosmic rays",
+   "The South Atlantic Anomaly",
+   "Total ionising dose and dose-depth curves",
+   "Single event effects: upset, latch-up, transient, functional interrupt",
+   "Displacement damage",
+   "Shielding strategies and spot shielding",
+   "Why more shielding is sometimes worse"]},
+  {g:"Other hazards",items:[
+   "Atomic oxygen erosion in low LEO",
+   "Spacecraft charging and electrostatic discharge",
+   "Micrometeoroid and orbital debris risk",
+   "Space weather monitoring and the solar cycle"]},
+  {g:"The stratosphere, for your balloon",items:[
+   "Conditions at 35 km: temperature, pressure, density",
+   "Air roughly 150 times thinner than sea level — and every consequence of that",
+   "UV exposure above most of the ozone layer",
+   "Stratospheric winds over Gujarat by season",
+   "What transfers honestly to a space design, and what does not"]}
+ ],
+ res:[
+  {n:"MIT OCW 16.851 — The Environment of Space",e:"Free lecture PDF",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {n:"NASA Small Spacecraft Systems Virtual Institute",e:"Reliability and environment knowledge base",u:"https://www.nasa.gov/smallsat-institute/"},
+  {n:"NOAA Space Weather Prediction Center",e:"Live space weather and the solar cycle",u:"https://www.swpc.noaa.gov/"}
+ ]},
+
+{n:19,stage:5,title:"Assembly, integration &amp; test",sub:"Months 12–18 · where first missions most often die",
+ groups:[
+  {g:"Cleanroom &amp; build",items:[
+   "Cleanroom classes (ISO 14644)",
+   "Electrostatic discharge control",
+   "Contamination control",
+   "Handling procedures and documentation discipline",
+   "Harness design, routing, connectors, strain relief",
+   "Conformal coating and staking",
+   "Integration sequence planning"]},
+  {g:"Environmental test campaign",items:[
+   "Thermal vacuum: hot and cold cycling, bakeout",
+   "Vibration: sine sweep, random, resonance survey",
+   "Shock testing",
+   "Acoustic testing",
+   "EMC and EMI testing",
+   "Reading a test report critically"]},
+  {g:"Standards &amp; philosophy",items:[
+   "NASA GEVS (GSFC-STD-7000)",
+   "ECSS-E-ST-10-03 test standard",
+   "Qualification versus acceptance versus protoflight",
+   "Functional and end-to-end testing",
+   "Day-in-the-life test"]},
+  {g:"Testing on a startup budget",items:[
+   "Freezer and dry-ice cold testing",
+   "Low-pressure chamber testing on a budget",
+   "Drop testing and shake-table substitutes",
+   "Long-range radio testing on the ground",
+   "IN-SPACe facility access for real vibration, TVAC and EMI/EMC"]}
+ ],
+ res:[
+  {n:"NASA Technical Standards",e:"GEVS and more — free download",u:"https://standards.nasa.gov/"},
+  {n:"ECSS standards",e:"European space standards, free registration",u:"https://ecss.nl/"},
+  {n:"IN-SPACe",e:"Private access to ISRO test facilities in India",u:"https://www.inspace.gov.in/inspace"}
+ ]},
+
+{n:20,stage:5,title:"Reliability engineering",sub:"Months 12–18 · why space hardware costs what it does",
+ groups:[
+  {g:"Analysis",items:[
+   "FMEA and FMECA",
+   "Fault tree analysis",
+   "Single point of failure identification",
+   "Worst-case analysis",
+   "Reliability prediction, MTBF and the bathtub curve",
+   "Reliability block diagrams"]},
+  {g:"Design practice",items:[
+   "Redundancy: cold, warm, hot",
+   "Cross-strapping",
+   "Derating guidelines for electronic parts",
+   "Part screening and lot acceptance testing",
+   "Lessons-learned databases from real failures"]},
+  {g:"Judgement",items:[
+   "Smallsat first-mission failure rates, and the honest reasons",
+   "The handful of failures that kill most first CubeSats",
+   "When redundancy adds risk instead of removing it",
+   "Deciding what you are willing to lose"]}
+ ],
+ res:[
+  {n:"NASA Small Satellite Reliability Initiative",e:"Knowledge base built from real mission failures",u:"https://www.nasa.gov/smallsat-institute/"},
+  {n:"SmallSat Conference proceedings",e:"Search 'lessons learned' — post-mortems are the gold",u:"https://digitalcommons.usu.edu/smallsat/"},
+  {n:"NASA Technical Standards",e:"Reliability and parts standards, free",u:"https://standards.nasa.gov/"}
+ ]},
+
+{n:21,stage:5,title:"Launch, ground segment &amp; operations",sub:"Months 12–18 · start the ground station in month 2, not month 20",
+ groups:[
+  {g:"Getting manifested",items:[
+   "Rideshare versus dedicated launch",
+   "Reading and interpreting a payload user's guide",
+   "Deployers: P-POD, ISIPOD, ISS deployment",
+   "Launch environment specifications from the provider",
+   "Launch campaign logistics and paperwork",
+   "ISRO PSLV rideshare and NSIL launch services"]},
+  {g:"Separation",items:[
+   "Separation sequence and tip-off rates",
+   "Deployment safety requirements, inhibits and arming",
+   "Orbit injection accuracy and dispersion"]},
+  {g:"Ground station",items:[
+   "Architecture: antenna, rotator, LNA, radio, TNC, computer",
+   "Antenna tracking and rotator control",
+   "Doppler correction software",
+   "Pass planning and scheduling",
+   "Site selection, noise floor and interference survey"]},
+  {g:"Operations",items:[
+   "Orbit determination and TLE updates",
+   "Mission control software: Yamcs, OpenC3 COSMOS",
+   "Telemetry archiving and trend analysis",
+   "Anomaly response procedures",
+   "LEOP and commissioning phase planning",
+   "Conjunction assessment and collision avoidance",
+   "End-of-life disposal and deorbit obligations"]}
+ ],
+ res:[
+  {n:"Yamcs",e:"Free open-source mission control software",u:"https://yamcs.org/"},
+  {n:"OpenC3 COSMOS",e:"Free command and telemetry system",u:"https://openc3.com/"},
+  {n:"Space-Track",e:"Conjunction data messages and TLEs (free registration)",u:"https://www.space-track.org/"},
+  {n:"ISRO",e:"PSLV rideshare and NSIL launch services",u:"https://www.isro.gov.in/"}
+ ]},
+
+{n:22,stage:5,title:"Indian regulation &amp; programme management",sub:"Months 12–18 · start the paperwork earlier than feels necessary",
+ groups:[
+  {g:"India — space",items:[
+   "Indian Space Policy 2023 and non-government entity provisions",
+   "IN-SPACe authorisation process and application portal",
+   "WPC / DoT spectrum licensing via Saral Sanchar",
+   "ITU filing route through WPC",
+   "DGFT and SCOMET export clearance for space hardware",
+   "Remote sensing data policy in India and resolution limits"]},
+  {g:"India — balloon flights",items:[
+   "DGCA rules for unmanned free balloons",
+   "Notification and NOTAM process",
+   "Airspace constraints over Gujarat and near airports",
+   "Powered return: what it changes in the application",
+   "Third-party liability and recovery obligations",
+   "Local police and district permissions in practice"]},
+  {g:"International",items:[
+   "Outer Space Treaty, Liability Convention, Registration Convention",
+   "IARU amateur frequency coordination",
+   "Export control basics: ITAR and EAR, and what you can legally buy",
+   "Space debris mitigation: IADC guidelines and ISO 24113"]},
+  {g:"Programme management",items:[
+   "Cost estimation models for smallsats",
+   "Procurement lead times for space-grade parts",
+   "Risk register and active risk management",
+   "Launch insurance and third-party liability",
+   "Building a programme schedule that survives contact with reality"]}
+ ],
+ res:[
+  {n:"IN-SPACe",e:"Authorisation norms, guidelines, application portal",u:"https://www.inspace.gov.in/inspace"},
+  {n:"DGCA India",e:"Civil aviation rules, including unmanned free balloons",u:"https://www.dgca.gov.in/"},
+  {n:"Saral Sanchar (WPC licensing portal)",e:"Where wireless licence applications are filed",u:"https://saralsanchar.gov.in/"},
+  {n:"ITU — Space Services",e:"Filing procedures and radio regulations",u:"https://www.itu.int/en/ITU-R/space/Pages/default.aspx"},
+  {n:"IARU",e:"Amateur satellite frequency coordination",u:"https://www.iaru.org/"}
+ ]},
+
+{n:23,stage:5,title:"Judging work &amp; reading the industry",sub:"Months 12–18 · the module that makes you dangerous in a room",
+ groups:[
+  {g:"Running a design review",items:[
+   "What to ask at a preliminary design review",
+   "What to ask at a critical design review",
+   "The five questions that expose a weak design in ten minutes",
+   "Interrogating a margin: where it came from and who owns it",
+   "Demanding the number behind every qualitative claim",
+   "Spotting a budget that was reverse-engineered from the answer"]},
+  {g:"Judging people and work",items:[
+   "Confidence versus competence, and how to tell them apart",
+   "Spotting a copied architecture nobody on the team understands",
+   "Always asking for the failure mode, never only the happy path",
+   "Take-home design problems that reveal real skill",
+   "Reviewing an analysis you could not have produced yourself",
+   "Knowing when to defer to an expert — and saying so plainly"]},
+  {g:"Reading critically",items:[
+   "Method before abstract, always",
+   "Spotting cherry-picked test regions in EO papers",
+   "Benchmark inflation and leaderboard gaming",
+   "When a published accuracy number is meaningless",
+   "Separating a video demo from a deployed product"]},
+  {g:"The industry map",items:[
+   "Who sells imagery, who sells analytics, who sells platforms",
+   "How EO data is actually priced, and why analytics margins are thin",
+   "Where free Sentinel and Landsat data destroys a business model",
+   "What the large EO companies actually sell versus what they market",
+   "Where Indian players and ISRO's commercial arm fit",
+   "The gap between what clients ask for and what they will pay for",
+   "Which parts of the stack are commoditising fastest"]}
+ ],
+ res:[
+  {n:"SmallSat Conference proceedings",e:"Free papers — the best raw material for judgement",u:"https://digitalcommons.usu.edu/smallsat/"},
+  {n:"eoPortal",e:"Compare any two missions' real specifications",u:"https://www.eoportal.org/"},
+  {n:"NASA Engineering Network — lessons learned",e:"Public database of real engineering failures",u:"https://llis.nasa.gov/"}
+ ]},
+
+/* ================= BUILD TRACK ================= */
+{n:24,stage:5,build:true,title:"Build track — balloon programme",sub:"Runs alongside every stage · not after it",
+ groups:[
+  {g:"Month 2 — first signal",items:[
+   "Assemble RTL-SDR, SAWbird+ NOAA filter and V-dipole",
+   "Install SatDump, GNU Radio and Gpredict",
+   "Predict a NOAA or Meteor-M pass for your location",
+   "Decode your first weather satellite image",
+   "Log image quality against pass elevation — your first real dataset",
+   "Measure your noise floor and identify local interference"]},
+  {g:"Months 4–6 — bench payload",items:[
+   "Pico 2 W running, reading a sensor over I2C",
+   "NEO-7M GPS achieving lock and logging NMEA",
+   "BNO085 streaming orientation at a usable rate",
+   "Pressure and temperature sensor added and calibrated",
+   "Data logging to storage with power-loss safety",
+   "Measure real current draw of every component",
+   "Build the actual power budget from measured numbers, not datasheets"]},
+  {g:"Months 7–9 — integration",items:[
+   "Orange Pi capturing camera frames reliably",
+   "Cloud-screening model running on the NPU, benchmarked on-board",
+   "Live georeferencing of each frame from GPS and attitude",
+   "Telemetry downlink working over the air at range",
+   "Servo-controlled camera pointing",
+   "Reaction wheel demo: brushless motor holding a single axis",
+   "Sun-pointing demo using the BPW34 photodiodes",
+   "Full payload assembled in its flight enclosure"]},
+  {g:"Months 10–12 — qualification",items:[
+   "Cold test: full payload at −40 °C or below",
+   "Low-pressure test and condensation behaviour",
+   "Drop test and landing survivability",
+   "Range test: telemetry over 10 km line of sight",
+   "Battery capacity measured cold, not warm",
+   "Day-in-the-life run: full mission profile on the bench",
+   "DGCA notification and permissions filed",
+   "Recovery plan, chase team and tracking redundancy"]},
+  {g:"Month 13 — flight 1",items:[
+   "Launch site selection and weather window analysis",
+   "Fill, release and ascent",
+   "Live telemetry and streaming held through ascent",
+   "Controlled descent and powered return below 10 km",
+   "Recovery",
+   "Post-flight data review: what the numbers actually said"]},
+  {g:"Months 14–15 — flight 2",items:[
+   "Fix everything flight 1 exposed",
+   "Wide-area imaging and weather profile objective defined",
+   "Autonomous navigation to base",
+   "Flight 2",
+   "Reusable-radiosonde case written up with real flight data"]},
+  {g:"Months 16–18 — toward the CubeSat",items:[
+   "What the two flights proved, and what they could not",
+   "CubeSat concept of operations",
+   "Preliminary design package: orbit, budgets, payload, architecture",
+   "The honest list of what you still cannot do alone"]}
+ ],
+ res:[
+  {n:"SondeHub",e:"Live radiosonde tracking and prediction tools",u:"https://sondehub.org/"},
+  {n:"CUSF landing predictor",e:"Predict balloon flight path and landing site",u:"https://predict.sondehub.org/"},
+  {n:"Stratospheric balloon community (UKHAS wiki)",e:"Practical high-altitude ballooning knowledge",u:"https://ukhas.org.uk/"},
+  {n:"DGCA India",e:"Rules for unmanned free balloons",u:"https://www.dgca.gov.in/"},
+  {n:"SatDump",e:"Decode weather satellite imagery from month 2",u:"https://www.satdump.org/"}
+ ]}
+];
+
+/* =========================================================================
+   APP
+   ========================================================================= */
+/* LIBRARY — global study materials. Each entry: n (name), e (what it is / how to use it),
+   u (url, omitted for books), t (type: book|course|standard|data|tool|archive). */
+const LIBRARY=[
+ {t:"Spine books",p:"Buy these. Everything else is free. The first two carry the whole plan.",items:[
+  {n:"Wertz &amp; Larson — Space Mission Analysis and Design (SMAD)",e:"Book · the single reference for the whole satellite path. Read a chapter alongside each module."},
+  {n:"Curtis — Orbital Mechanics for Engineering Students",e:"Book · module 3. Worked problems; do them, don't read them."},
+  {n:"Markley &amp; Crassidis — Spacecraft Attitude Determination and Control",e:"Book · module 8. The definitive pointing text."},
+  {n:"Patel — Spacecraft Power Systems",e:"Book · module 6."},
+  {n:"Gilmore — Spacecraft Thermal Control Handbook",e:"Book · module 9. Industry standard."},
+  {n:"Maral &amp; Bousquet — Satellite Communications Systems",e:"Book · module 7. Link budget maths done properly."},
+  {n:"Lillesand — Remote Sensing and Image Interpretation",e:"Book · module 12. The standard course text."},
+  {n:"Schott — Remote Sensing: The Image Chain Approach",e:"Book · modules 11–12. Links optics to final image quality."},
+  {n:"Iliffe &amp; Lott — Datums and Map Projections",e:"Book · module 13. The serious treatment of datums."},
+  {n:"Jensen — Introductory Digital Image Processing",e:"Book · modules 12 and 14. Classification and accuracy assessment."}
+ ]},
+ {t:"Free courses &amp; training",p:"Structured, finishable, no cost. Start GMAT and ARSET in month 1.",items:[
+  {n:"MIT OCW 16.851 — Satellite Engineering",e:"Lecture notes covering orbits, power, ADCS, thermal, optics, environment",u:"https://ocw.mit.edu/courses/16-851-satellite-engineering-fall-2003/pages/lecture-notes/"},
+  {n:"MIT OCW 16.842 — Fundamentals of Systems Engineering",e:"Full course built around the V-model · module 4",u:"https://ocw.mit.edu/courses/16-842-fundamentals-of-systems-engineering-fall-2015/"},
+  {n:"MIT OCW 16.83X — Space Systems Engineering",e:"Capstone-level mission design",u:"https://ocw.mit.edu/courses/16-83x-space-systems-engineering-spring-2002-spring-2003/"},
+  {n:"NASA ARSET",e:"Free applied remote sensing and EO machine learning training, with certificates",u:"https://appliedsciences.nasa.gov/arset"},
+  {n:"EO College",e:"Free ESA-backed courses, strong on radar and SAR",u:"https://eo-college.org/"},
+  {n:"Spatial Thoughts",e:"Free India-based QGIS, Python and Earth Engine courses",u:"https://spatialthoughts.com/"},
+  {n:"Google Earth Engine tutorials",e:"Fastest way to test a geospatial idea at continental scale",u:"https://developers.google.com/earth-engine/tutorials"},
+  {n:"Dive into Deep Learning (d2l.ai)",e:"Free interactive book · module 15 foundations",u:"https://d2l.ai/"},
+  {n:"Khan Academy — physics and linear algebra",e:"Module 1 warm-up, exactly the right level",u:"https://www.khanacademy.org/science/physics"},
+  {n:"3Blue1Brown — Essence of Linear Algebra",e:"Builds the intuition behind rotations and quaternions",u:"https://www.3blue1brown.com/topics/linear-algebra"}
+ ]},
+ {t:"Primary documents &amp; standards",p:"Read these instead of blog summaries of them. This is what you will be held to.",items:[
+  {n:"NASA CubeSat 101",e:"Free PDF · the whole mission process end to end. Read twice.",u:"https://www.nasa.gov/wp-content/uploads/2017/03/nasa_csli_cubesat_101_508.pdf"},
+  {n:"CubeSat Design Specification (Cal Poly)",e:"The mechanical rulebook · module 5",u:"https://www.cubesat.org/cubesatinfo"},
+  {n:"NASA State of the Art — Small Spacecraft Technology",e:"Flight-proven hardware by subsystem, updated yearly. Your component reality check.",u:"https://www.nasa.gov/smallsat-institute/sst-soa"},
+  {n:"NASA Technical Standards (incl. GEVS)",e:"Test levels and environmental requirements · module 19",u:"https://standards.nasa.gov/"},
+  {n:"ECSS standards",e:"European space standards, free registration · modules 4 and 19",u:"https://ecss.nl/"},
+  {n:"CCSDS standards",e:"Free telemetry, telecommand and compression standards · modules 7, 10, 12",u:"https://public.ccsds.org/default.aspx"},
+  {n:"OGC standards",e:"WMS, WFS, WMTS and the rest · module 17",u:"https://www.ogc.org/standards/"},
+  {n:"STAC specification",e:"The catalogue standard EO data is converging on",u:"https://stacspec.org/"}
+ ]},
+ {t:"Free data to practise on",p:"Never learn an analysis on a toy dataset. Use real scenes over Gujarat.",items:[
+  {n:"Copernicus Data Space",e:"Sentinel-1 and Sentinel-2, including raw levels",u:"https://dataspace.copernicus.eu/"},
+  {n:"USGS EarthExplorer",e:"The full Landsat archive, plus declassified historical imagery",u:"https://earthexplorer.usgs.gov/"},
+  {n:"NASA Earthdata Search",e:"MODIS, VIIRS, thermal, atmospheric and climate products",u:"https://search.earthdata.nasa.gov/"},
+  {n:"Alaska Satellite Facility",e:"SAR data and processing recipes · module 12",u:"https://asf.alaska.edu/"},
+  {n:"ISRO Bhuvan",e:"Indian satellite data and national thematic layers",u:"https://bhuvan.nrsc.gov.in/"},
+  {n:"data.gov.in",e:"Indian government open data, including census and administrative boundaries",u:"https://data.gov.in/"},
+  {n:"OpenStreetMap extracts (Geofabrik)",e:"Free vector base data for India, by state",u:"https://download.geofabrik.de/asia/india.html"},
+  {n:"Copernicus DEM",e:"Global 30 m elevation · needed for orthorectification",u:"https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"},
+  {n:"STAC Index",e:"Directory of open STAC catalogues worth pointing a pipeline at",u:"https://stacindex.org/"}
+ ]},
+ {t:"Software to install",p:"All free, or free for personal and student use. Install the first group in week one.",items:[
+  {n:"GMAT (NASA)",e:"Mission analysis and orbit design",u:"https://sourceforge.net/projects/gmat/"},
+  {n:"Gpredict",e:"Pass prediction, tracking, Doppler correction",u:"http://gpredict.oz9aec.net/"},
+  {n:"GNU Radio + SatDump",e:"SDR processing and live weather-satellite decoding",u:"https://www.satdump.org/"},
+  {n:"QGIS",e:"The GIS you will live in",u:"https://qgis.org"},
+  {n:"GDAL / rasterio / GeoPandas",e:"The engine under almost every geospatial tool",u:"https://gdal.org/"},
+  {n:"ESA SNAP",e:"Sentinel-1 and Sentinel-2 processing end to end",u:"https://step.esa.int/main/toolboxes/snap/"},
+  {n:"PostGIS",e:"The reference spatial database · module 17",u:"https://postgis.net/documentation/"},
+  {n:"PySAL and GeoDa",e:"Spatial statistics · module 14",u:"https://pysal.org/"},
+  {n:"TorchGeo",e:"EO datasets, models and samplers · module 15",u:"https://torchgeo.readthedocs.io/"},
+  {n:"ONNX Runtime",e:"Edge inference on the Orange Pi · module 16",u:"https://onnxruntime.ai/"},
+  {n:"FreeCAD and KiCad",e:"Structure and PCB design",u:"https://www.freecad.org/"},
+  {n:"FreeRTOS",e:"Flight software foundations · module 10",u:"https://www.freertos.org/"},
+  {n:"Yamcs or OpenC3 COSMOS",e:"Real mission control software · module 21",u:"https://yamcs.org/"}
+ ]},
+ {t:"Papers, archives &amp; communities",p:"Where judgement actually comes from. Budget time here every week.",items:[
+  {n:"SmallSat Conference proceedings",e:"Free full-text papers. Search 'lessons learned' first.",u:"https://digitalcommons.usu.edu/smallsat/"},
+  {n:"NASA Lessons Learned Information System",e:"Public database of real engineering failures · module 23",u:"https://llis.nasa.gov/"},
+  {n:"eoPortal",e:"Specifications for almost every EO mission ever flown",u:"https://www.eoportal.org/"},
+  {n:"arXiv — eess.IV and astro-ph.IM",e:"Open preprints for EO imaging and space instrumentation",u:"https://arxiv.org/list/eess.IV/recent"},
+  {n:"Satellite image deep learning — techniques",e:"Curated index of EO AI datasets, models and papers",u:"https://github.com/satellite-image-deep-learning/techniques"},
+  {n:"AMSAT",e:"Amateur satellite community: frequencies, ground stations, coordination",u:"https://www.amsat.org/"},
+  {n:"UKHAS wiki",e:"Practical high-altitude ballooning knowledge · module 24",u:"https://ukhas.org.uk/"},
+  {n:"SondeHub",e:"Live radiosonde tracking and landing prediction · module 24",u:"https://sondehub.org/"},
+  {n:"IN-SPACe",e:"Indian authorisation norms, guidelines and the application portal",u:"https://www.inspace.gov.in/inspace"}
+ ]}
+];
+
+const KEY='geo-deeptech-plan-v1';
+let state={};
+const BOM={"sheets": [{"key": "own","sheet": "Already owned","title": "Already in hand","intro": "Listed at zero cost so the programme total reflects only new spending. The caveat column matters more than the credit: three of these items need checking or replacing before they fly. Hover the item name where a comment marker appears.","groups": [{"g": "ALREADY IN HAND — credited against the programme, with the caveats that matter","items": [{"ref": "ALR-01","item": "Orange Pi 4 Pro 6 GB, 3 TOPS NPU","spec": "Onboard compute and the GeoAI payload (modules 15 and 16). Benchmark it yourself; the advertised TOPS figure will not predict sustained throughput in a sealed warm box.","qty": 1,"unit": 0,"line": 0,"mass": 120,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-02","item": "Raspberry Pi Pico 2 W and LAFVIN kit","spec": "Sensor and housekeeping microcontroller, independent of the main computer. Good practice: let the small reliable thing hold the telemetry.","qty": 1,"unit": 0,"line": 0,"mass": 15,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-03","item": "Nooelec RTL-SDR v5, SAWbird+ NOAA LNA, V-dipole","spec": "Complete receive chain for weather satellite imagery. This is build step M24-A01 and needs nothing further.","qty": 1,"unit": 0,"line": 0,"mass": null,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-04","item": "BNO085 9-DOF IMU","spec": "Attitude sensing for the pointing demonstration (M24-C06) and for the glider.","qty": 1,"unit": 0,"line": 0,"mass": 12,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-05","item": "NEO-7M GPS modules, two","spec": "Usable as the secondary GPS. The u-blox 6/7/8 family keeps working above 18 km when set to the airborne dynamic model, but verify the setting survives a power cycle on these clone boards.","qty": 2,"unit": 0,"line": 0,"mass": 15,"flies": "Y","basis": "Owned — verify airborne mode persists","where": "—","status": "Owned","warn": "Test this specifically: set airborne mode, power cycle, and confirm it still reports. A GPS that silently stops at 18 km loses the vehicle."},{"ref": "ALR-06","item": "A2212 1000KV motor, 30 A ESC, 1045 props","spec": "Propulsion starting point. The 1045 prop is sized for sea level; expect to fit a larger, higher-pitch prop for 8–10 km.","qty": 1,"unit": 0,"line": 0,"mass": 120,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-07","item": "MG996R servos","spec": "Bench and drop testing only. Not rated for stratospheric cold, and heavy at roughly 55 g each.","qty": 1,"unit": 0,"line": 0,"mass": 55,"flies": "Y","basis": "Owned — not flight rated","where": "—","status": "Owned","warn": "Keep these for ground testing. Flying them is the kind of avoidable single-point failure module 20 is about."},{"ref": "ALR-08","item": "BPW34 photodiodes, five","spec": "Sun sensing for the sun-tracking demonstration (M24-C07) and the satellite attitude work in module 8.","qty": 5,"unit": 0,"line": 0,"mass": 1,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null},{"ref": "ALR-09","item": "Logic analyser, 8 channel, 24 MHz","spec": "I2C, SPI and UART debugging. Covers most of what you will need on the bench.","qty": 1,"unit": 0,"line": 0,"mass": null,"flies": "Y","basis": "Owned","where": "—","status": "Owned","warn": null}]}],"total": 0,"flymass": 357},{"key": "v1","sheet": "V1 BOM","title": "Version 1 — full bill of materials","intro": "Version 1 as specified: ~35 km, camera, sensors, live telemetry and streaming, wings for controlled descent, propellers deployed below ~10 km for powered return to base. Prices are planning estimates in INR and must be re-quoted at purchase time. Blue cells are yours to edit. Mass drives balloon size, so fill the mass column before ordering the balloon.","groups": [{"g": "LIFT & RECOVERY — the consumable half of every flight","items": [{"ref": "V1-01","item": "Sounding balloon, 3000 g latex","spec": "Sized for a ~3 kg payload to 33–35 km. A 2000 g balloon tops out near 2 kg; confirm against your own mass budget (module 5, M05-B01) before ordering.","qty": 1,"unit": 26000,"line": 26000,"mass": 3000,"flies": "N","basis": "Estimate — verify with supplier","where": "Pawan Exports (India) or import","status": "To buy","warn": "Balloon size follows directly from total payload mass. Do the mass budget first: an extra 500 g can push you up a balloon size and add a cylinder of gas."},{"ref": "V1-02","item": "Sounding balloon, spare","spec": "One spare. A burst or mishandled balloon on fill day otherwise ends the campaign.","qty": 1,"unit": 26000,"line": 26000,"mass": 3000,"flies": "N","basis": "Estimate — verify with supplier","where": "Same as above","status": "To buy","warn": null},{"ref": "V1-03","item": "Helium, balloon grade, 7 m³ cylinder","spec": "About 14–17 m³ of fill for a 3 kg payload with adequate free lift, so three cylinders. Industrial balloon-grade is adequate; research grade is not needed.","qty": 3,"unit": 2800,"line": 8400,"mass": null,"flies": "N","basis": "Verified: ₹2,300/7 m³ cylinder listed on IndiaMART (Jaipur, 2026)","where": "Local industrial gas supplier","status": "To buy","warn": "Helium supply in India is intermittent and priced by region. Book early and confirm cylinder availability before fixing a launch date."},{"ref": "V1-04","item": "Cylinder regulator, fill hose and nozzle","spec": "Reusable across flights. Must match the cylinder valve standard your supplier uses.","qty": 1,"unit": 10000,"line": 10000,"mass": null,"flies": "N","basis": "Estimate","where": "Industrial gas supplier","status": "To buy","warn": null},{"ref": "V1-05","item": "Parachute, 1.8 m ripstop nylon","spec": "Independent of the glider. If the glider fails to release or its control fails, this is what stops the payload becoming a falling object.","qty": 1,"unit": 6000,"line": 6000,"mass": 350,"flies": "Y","basis": "Estimate","where": "RC / rocketry supplier","status": "To buy","warn": "Not optional. This is the difference between a failed flight and an incident."},{"ref": "V1-06","item": "Rigging set: cord, swivels, carabiners, load tape","spec": "50 m braided nylon, rated well above payload mass, plus swivels to stop the train spinning.","qty": 1,"unit": 2500,"line": 2500,"mass": 250,"flies": "N","basis": "Estimate","where": "Local / hardware","status": "To buy","warn": null},{"ref": "V1-07","item": "Nichrome cutdown and relay","spec": "Releases the glider from the balloon train at the chosen altitude. The documented Rutgers glider flight used exactly this method.","qty": 2,"unit": 1200,"line": 2400,"mass": 40,"flies": "Y","basis": "Method verified from published glider flight","where": "Electronics supplier","status": "To buy","warn": null}]},{"g": "AIRFRAME — the glider that does the real work of getting home","items": [{"ref": "V1-08","item": "Glider airframe, 1.6–2.0 m span","spec": "EPP or foamboard with carbon spars. The published 10 km glider drop was a homemade foamcore body at about 1300 g all-in and flew 196 km.","qty": 1,"unit": 15000,"line": 15000,"mass": 700,"flies": "Y","basis": "Mass verified from published flight (≈1300 g total vehicle)","where": "RC supplier / self-built","status": "To buy","warn": "Build two. The first airframe is a prototype whatever you intend it to be."},{"ref": "V1-09","item": "Glider airframe, second unit","spec": "For drop testing. The published flight made six test drops from a quadcopter before the balloon flight.","qty": 1,"unit": 15000,"line": 15000,"mass": 700,"flies": "N","basis": "Practice verified from published flight","where": "Same as above","status": "To buy","warn": null},{"ref": "V1-10","item": "Carbon tube and rod spar set","spec": "Wing spar and tail boom. Carbon keeps stiffness at low temperature where foam alone goes floppy.","qty": 1,"unit": 4000,"line": 4000,"mass": 120,"flies": "Y","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null},{"ref": "V1-11","item": "Control surface hardware: horns, linkages, hinges, film","spec": "Consumable. Buy twice what you think you need.","qty": 1,"unit": 3500,"line": 3500,"mass": 80,"flies": "N","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null},{"ref": "V1-12","item": "Servos, metal gear digital, low-temperature rated","spec": "Four: two elevons or aileron/elevator, one rudder, one spare channel. Specify a rated operating temperature below −40 °C.","qty": 4,"unit": 2500,"line": 10000,"mass": 60,"flies": "Y","basis": "Estimate","where": "RC supplier","status": "To buy","warn": "Your MG996R servos are not rated for stratospheric cold and are heavy at ~55 g each. Keep them for bench and drop testing only; buy cold-rated servos for flight."},{"ref": "V1-13","item": "Airspeed sensor and pitot tube","spec": "The flight controller needs airspeed, not just GPS ground speed, to hold a glide at altitude where true airspeed and indicated airspeed diverge sharply.","qty": 1,"unit": 4000,"line": 4000,"mass": 30,"flies": "Y","basis": "Estimate","where": "Drone supplier","status": "To buy","warn": "At 35 km, indicated airspeed is a small fraction of true airspeed. A controller flying on GPS speed alone will stall or overspeed."}]},{"g": "PROPULSION — only useful below about 10 km","items": [{"ref": "V1-14","item": "Propeller set, folding, 11–13 inch, assorted pitch","spec": "Air at 10 km is roughly a quarter of sea-level density, so the same motor needs a larger, higher-pitch prop to produce the same thrust. Buy a range and test.","qty": 1,"unit": 3500,"line": 3500,"mass": 60,"flies": "Y","basis": "Density figure from the standard atmosphere","where": "RC supplier","status": "To buy","warn": "Your A2212 1000KV with a 1045 prop is sized for sea level. Expect to go to a bigger diameter and higher pitch for 8–10 km."},{"ref": "V1-15","item": "Brushless motor, lower KV alternative","spec": "A second motor option with lower KV and a bigger prop is usually more efficient at altitude than spinning a small prop faster.","qty": 1,"unit": 3000,"line": 3000,"mass": 70,"flies": "Y","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null},{"ref": "V1-16","item": "Propeller deployment mechanism","spec": "Folding props self-deploy under rotation; a servo-held latch keeps them stowed during ascent and descent.","qty": 1,"unit": 2500,"line": 2500,"mass": 80,"flies": "Y","basis": "Estimate","where": "Self-built / 3D printed","status": "To buy","warn": null},{"ref": "V1-17","item": "Spare motor and ESC","spec": "Props and motors are the parts most likely to be damaged on landing.","qty": 1,"unit": 3500,"line": 3500,"mass": 120,"flies": "N","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null}]},{"g": "FLIGHT CONTROL & NAVIGATION","items": [{"ref": "V1-18","item": "Flight controller, Pixhawk class","spec": "The published glider used a Pixhawk with GPS, commanded over MAVLink by a Raspberry Pi Zero, and landed about 10 m from its target waypoint.","qty": 1,"unit": 18000,"line": 18000,"mass": 40,"flies": "Y","basis": "Architecture verified from published glider flight","where": "Drone supplier","status": "To buy","warn": "Use an autopilot with a documented autonomous glide and return-to-launch mode. Do not write your own guidance loop."},{"ref": "V1-19","item": "GPS module, altitude-capable u-blox M8/M10","spec": "Primary navigation. Must be set to the airborne dynamic model. The u-blox 6/7/8 family combines its altitude and speed limits with AND logic, so it keeps working above 18 km while under 515 m/s.","qty": 1,"unit": 5000,"line": 5000,"mass": 15,"flies": "Y","basis": "Verified: UKHAS GPS module guide","where": "Electronics supplier","status": "To buy","warn": "Your NEO-7M should work to high altitude once set to airborne mode, but clone boards often fail to persist that configuration across a power cycle. Buy a known-good module as primary and verify the setting survives a reboot before flight. Keep the NEO-7M as the secondary."},{"ref": "V1-20","item": "GPS module, secondary","spec": "Independent of the primary, ideally a different model. Losing position means losing the vehicle.","qty": 1,"unit": 4000,"line": 4000,"mass": 15,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-21","item": "External magnetometer / compass","spec": "Away from the motor and power wiring, or the heading will be wrong exactly when the propellers run.","qty": 1,"unit": 2200,"line": 2200,"mass": 20,"flies": "Y","basis": "Estimate","where": "Drone supplier","status": "To buy","warn": null}]},{"g": "COMPUTE & IMAGING","items": [{"ref": "V1-22","item": "Camera module, global shutter, nadir","spec": "Global shutter avoids the rolling-shutter smear a swinging payload produces. Nadir view is the one that georeferences cleanly.","qty": 1,"unit": 8000,"line": 8000,"mass": 40,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-23","item": "Camera module, horizon","spec": "The horizon shot is what people actually want to see, and it is useful for attitude verification after the flight.","qty": 1,"unit": 6000,"line": 6000,"mass": 40,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-24","item": "Lens set, wide and narrow","spec": "Field of view sets your swath; focal length sets your ground resolution. This is module 11 (M11-A01) made physical.","qty": 1,"unit": 5000,"line": 5000,"mass": 60,"flies": "Y","basis": "Estimate","where": "Optics supplier","status": "To buy","warn": null},{"ref": "V1-25","item": "High-endurance microSD cards, 128 GB","spec": "Onboard recording is the guaranteed data path. The radio link is a bonus, not the record.","qty": 3,"unit": 1500,"line": 4500,"mass": 2,"flies": "N","basis": "Estimate","where": "Any retailer","status": "To buy","warn": "Record everything onboard at full quality. Treat the downlink as a preview, never as the archive."},{"ref": "V1-26","item": "Heatsink and thermal pads for the Orange Pi","spec": "Running a model on the NPU in a sealed insulated box is a thermal problem, not only a compute one (M16-B04).","qty": 1,"unit": 1200,"line": 1200,"mass": 60,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null}]},{"g": "SENSORS","items": [{"ref": "V1-27","item": "Barometric pressure sensor, MS5611 or BMP390 class","spec": "Pressure at 35 km is about 5–6 hPa. A common BMP280 bottoms out near 300 hPa, which is only about 9 km, so it would stop reading three quarters of the way up.","qty": 2,"unit": 2000,"line": 4000,"mass": 2,"flies": "Y","basis": "Pressure figure from the standard atmosphere","where": "Electronics supplier","status": "To buy","warn": "Check the minimum pressure in the datasheet, not just the maximum altitude a seller claims. This is the single most commonly mis-specified sensor on a balloon payload."},{"ref": "V1-28","item": "External air temperature probe, PT1000 with amplifier","spec": "Radiation-shielded and mounted clear of the payload box, or you will measure the box rather than the atmosphere.","qty": 2,"unit": 3000,"line": 6000,"mass": 25,"flies": "Y","basis": "Estimate","where": "Instrumentation supplier","status": "To buy","warn": null},{"ref": "V1-29","item": "Humidity sensor, SHT85 class","spec": "Needed for the radiosonde-replacement story in version 2; worth flying in version 1 to characterise it.","qty": 1,"unit": 3500,"line": 3500,"mass": 5,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-30","item": "Thermistors for internal monitoring","spec": "Six points: battery, each camera, the Orange Pi, the radio, and ambient inside the box.","qty": 8,"unit": 80,"line": 640,"mass": 2,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null}]},{"g": "COMMUNICATIONS — read the legal note on the Rules sheet before buying","items": [{"ref": "V1-31","item": "Imagery and telemetry downlink transmitter, 70 cm","spec": "A published amateur build used a 1 W FSK transmitter on 70 cm with LDPC coding to send 640×480 video at 12 fps within a 200 kbit/s budget, received beyond 50 km.","qty": 1,"unit": 6000,"line": 6000,"mass": 25,"flies": "Y","basis": "Verified: published amateur balloon video build","where": "Import / electronics supplier","status": "To buy","warn": "LEGAL GATE. 1 W on 433 MHz is amateur-band operation and requires an Indian amateur licence with digital privileges. The licence-free 433–434.79 MHz allowance is about 10 mW ERP, which is a hundred times less power. See the Rules sheet."},{"ref": "V1-32","item": "LoRa module, 865–867 MHz, ETA-compliant","spec": "The licence-free path. India permits up to 500 mW ERP in 865–868 MHz for tracking, tracing and data acquisition, with adaptive power control and a 2.5% duty cycle.","qty": 2,"unit": 3000,"line": 6000,"mass": 10,"flies": "Y","basis": "Verified: G.S.R. 853(E) short range device rules, Table II","where": "Electronics supplier","status": "To buy","warn": "The 2.5% duty cycle is the catch. It is ample for position and housekeeping telemetry and nowhere near enough for live video. Plan the link budget around that (M07-B05)."},{"ref": "V1-33","item": "Airborne antennas: quarter-wave ground plane and dipole","spec": "Built, not bought, mostly. Budget covers wire, SMA connectors and a spare.","qty": 1,"unit": 3000,"line": 3000,"mass": 60,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-34","item": "Independent GSM/GPS tracker","spec": "A completely separate recovery path that needs no equipment of yours to work. It acquires signal on the way down below about 3 km.","qty": 2,"unit": 3000,"line": 6000,"mass": 60,"flies": "Y","basis": "Method verified from published glider flight (car-style GSM tracker as backup)","where": "Any retailer","status": "To buy","warn": "Independent means separate battery, separate antenna, separate everything. A backup sharing the main power bus is not a backup."},{"ref": "V1-35","item": "Satellite tracker, Iridium short-burst or Swarm","spec": "The only tracker that reports from anywhere, including the 35 km cruise and a landing with no cellular coverage. Expensive, and the difference between recovering the vehicle and writing it off.","qty": 1,"unit": 32000,"line": 32000,"mass": 80,"flies": "Y","basis": "Estimate — verify current hardware and airtime pricing","where": "Import","status": "To buy","warn": "Weigh this against the cost of the payload it protects. If the vehicle is worth more than the tracker, buy the tracker."},{"ref": "V1-36","item": "RF cabling, pigtails and connectors","spec": "Consumable. Bad connectors cause more link failures than bad radios.","qty": 1,"unit": 3000,"line": 3000,"mass": 40,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null}]},{"g": "POWER & THERMAL","items": [{"ref": "V1-37","item": "Lithium AA primary cells for avionics","spec": "Lithium iron disulfide AA cells hold capacity down to roughly −40 °C, where ordinary alkaline cells collapse. The standard choice for balloon avionics.","qty": 24,"unit": 250,"line": 6000,"mass": 15,"flies": "Y","basis": "Estimate","where": "Any retailer","status": "To buy","warn": "Measure your real capacity cold, not warm (M06-B03). A battery characterised at room temperature will mislead you about flight duration."},{"ref": "V1-38","item": "LiPo pack, 4S, for propulsion","spec": "Only the propellers need this much current, and only below 10 km. Size it for the powered leg, not the whole flight.","qty": 2,"unit": 5500,"line": 11000,"mass": 400,"flies": "Y","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null},{"ref": "V1-39","item": "Battery protection and balancing board","spec": "For the LiPo packs. A cell going out of balance in flight is unrecoverable.","qty": 2,"unit": 900,"line": 1800,"mass": 20,"flies": "Y","basis": "Estimate","where": "RC supplier","status": "To buy","warn": null},{"ref": "V1-40","item": "DC-DC regulators, 5 V and 12 V","spec": "Efficiency at low load matters more than peak rating here; most of the flight is a light load (M06-C06).","qty": 4,"unit": 700,"line": 2800,"mass": 25,"flies": "N","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "V1-41","item": "Battery heater pads and thermostat","spec": "Keeping the battery warm is usually the tightest thermal constraint on the vehicle.","qty": 2,"unit": 1200,"line": 2400,"mass": 40,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": "The published glider flight used chemical hand warmers sealed in the fuselage to stop the electronics freezing. Simple, and it worked."},{"ref": "V1-42","item": "Chemical hand warmers","spec": "Zero power, zero complexity, and a documented solution on a real stratospheric glider flight.","qty": 30,"unit": 40,"line": 1200,"mass": 20,"flies": "N","basis": "Method verified from published glider flight","where": "Any retailer","status": "To buy","warn": null},{"ref": "V1-43","item": "Power distribution board, fuses, arming plug","spec": "One obvious physical arming point. You do not want propellers live while you are holding the vehicle.","qty": 1,"unit": 2500,"line": 2500,"mass": 80,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": "A remove-before-flight arming plug is a safety requirement, not a nicety. Module 6 (M06-C09) covers the equivalent on a satellite."},{"ref": "V1-44","item": "Wiring, connectors and heat shrink","spec": "XT60, JST and silicone-insulated wire. PVC insulation goes brittle in the cold.","qty": 1,"unit": 3000,"line": 3000,"mass": 120,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null}]},{"g": "STRUCTURE, ENCLOSURE & THERMAL PROTECTION","items": [{"ref": "V1-45","item": "Extruded polystyrene foam, 50 mm","spec": "The payload enclosure. Cheap, light, and the standard material for this job.","qty": 1,"unit": 1500,"line": 1500,"mass": 300,"flies": "Y","basis": "Estimate","where": "Local hardware","status": "To buy","warn": null},{"ref": "V1-46","item": "Multi-layer insulation or aerogel sheet","spec": "For the battery and any component with a narrow temperature window.","qty": 1,"unit": 5000,"line": 5000,"mass": 80,"flies": "Y","basis": "Estimate","where": "Import / specialist","status": "To buy","warn": null},{"ref": "V1-47","item": "Mounting hardware, standoffs, vibration isolation","spec": "Everything must survive the landing, which is the highest-shock event of the flight.","qty": 1,"unit": 2500,"line": 2500,"mass": 150,"flies": "Y","basis": "Estimate","where": "Local hardware","status": "To buy","warn": null},{"ref": "V1-48","item": "Tapes: Kapton, aluminium, gaffer, and zip ties","spec": "Consumable across every build and test.","qty": 1,"unit": 2500,"line": 2500,"mass": 100,"flies": "N","basis": "Estimate","where": "Local / electronics","status": "To buy","warn": null},{"ref": "V1-49","item": "3D printing filament, PETG and ASA","spec": "Brackets, camera mounts, antenna bases. PLA is unsuitable: it is brittle in the cold.","qty": 2,"unit": 1800,"line": 3600,"mass": 200,"flies": "N","basis": "Estimate","where": "Any retailer","status": "To buy","warn": null}]}],"total": 315140,"flymass": 4450},{"key": "v2","sheet": "V2 additions","title": "Version 2 — additions only","intro": "Version 2 reuses the version 1 avionics, radios, power system and ground station. Only the deltas are listed here, so the programme total is version 1 plus this sheet. Version 2 as discussed: a wide-area weather and imaging profile positioned as a reusable alternative to disposable radiosondes.","groups": [{"g": "WHAT CHANGES FOR VERSION 2 — flown about two months after version 1","items": [{"ref": "V2-01","item": "Airframe, third unit, longer range","spec": "Version 2 trades the return-to-base demonstration for coverage: a wider wing and a better glide ratio buy range for the wide-area weather and imaging profile.","qty": 1,"unit": 25000,"line": 25000,"mass": 900,"flies": "Y","basis": "Estimate","where": "RC supplier / self-built","status": "To buy","warn": "Decide before building whether version 2 returns to base or flies a long one-way profile. The two airframes are not the same vehicle."},{"ref": "V2-02","item": "Calibrated humidity and temperature sensor set","spec": "For the reusable-radiosonde claim you need instruments you can defend against a reference, not hobby sensors.","qty": 1,"unit": 18000,"line": 18000,"mass": 60,"flies": "Y","basis": "Estimate — verify against instrument suppliers","where": "Instrumentation supplier","status": "To buy","warn": "The whole commercial story is that one reusable unit replaces many disposable ones. That claim only survives if the measurements are traceable."},{"ref": "V2-03","item": "Higher-resolution or multispectral camera","spec": "The imaging half of the version 2 profile. Specify it from the ground resolution and swath you actually need, not from the highest number available (M11-C02).","qty": 1,"unit": 35000,"line": 35000,"mass": 120,"flies": "Y","basis": "Estimate","where": "Import / specialist","status": "To buy","warn": null},{"ref": "V2-04","item": "Extended battery capacity","spec": "A longer flight profile needs more energy. Re-run the energy balance rather than adding cells by feel (M06-C03).","qty": 1,"unit": 12000,"line": 12000,"mass": 500,"flies": "Y","basis": "Estimate","where": "As above","status": "To buy","warn": null},{"ref": "V2-05","item": "Second satellite tracker","spec": "Two independent long-range trackers once the flight profile takes the vehicle beyond easy reach.","qty": 1,"unit": 32000,"line": 32000,"mass": 80,"flies": "Y","basis": "Estimate","where": "Import","status": "To buy","warn": null},{"ref": "V2-06","item": "Sounding balloon, 3000 g, and spare","spec": "Two more balloons for flight 2 and its reflight margin.","qty": 2,"unit": 26000,"line": 52000,"mass": 3000,"flies": "N","basis": "Estimate — verify with supplier","where": "Pawan Exports (India) or import","status": "To buy","warn": null},{"ref": "V2-07","item": "Helium, 7 m³ cylinders, flight 2","spec": "Three cylinders again, assuming a similar payload mass.","qty": 3,"unit": 2800,"line": 8400,"mass": null,"flies": "N","basis": "Verified: ₹2,300/7 m³ listed on IndiaMART (Jaipur, 2026)","where": "Local gas supplier","status": "To buy","warn": null},{"ref": "V2-08","item": "Spares and replacements from flight 1 lessons","spec": "Reserved, unallocated. Every documented first flight produces a list of things to replace.","qty": 1,"unit": 25000,"line": 25000,"mass": null,"flies": "N","basis": "Allowance","where": "Various","status": "To buy","warn": "Do not allocate this line until flight 1 has flown. Its purpose is to absorb what you have not thought of yet."}]}],"total": 207400,"flymass": 1660},{"key": "gnd","sheet": "Ground station","title": "Ground station","intro": "Reused across every flight and the most valuable thing you can build early. It turns link budgets, Doppler and pass planning from abstractions into measurements. Your RTL-SDR v5, SAWbird+ NOAA filter and V-dipole already cover weather satellite reception.","groups": [{"g": "RECEIVE CHAIN — build this in month 2, long before anything flies","items": [{"ref": "GRO-01","item": "Software defined radio, 14-bit class","spec": "Your RTL-SDR v5 is 8-bit and adequate for weather satellite imagery. A 14-bit receiver gives real dynamic range for a weak payload downlink; the published balloon video build used one.","qty": 1,"unit": 24000,"line": 24000,"mass": null,"flies": "Y","basis": "Verified: receiver class named in published balloon video build","where": "Import","status": "To buy","warn": "Start with the RTL-SDR you own. Buy this when you can show, with a measurement, that the receiver is your limiting factor."},{"ref": "GRO-02","item": "Low noise amplifier, 70 cm","spec": "At the antenna, not at the radio. Cable loss ahead of the amplifier is unrecoverable.","qty": 1,"unit": 4000,"line": 4000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "GRO-03","item": "Yagi antenna, 70 cm, 7–11 element","spec": "The published build tracked a balloon with a hand-held directional antenna on a tripod and held the link past 50 km.","qty": 1,"unit": 8000,"line": 8000,"mass": null,"flies": "Y","basis": "Verified: method from published balloon video build","where": "Import / self-built","status": "To buy","warn": null},{"ref": "GRO-04","item": "Tripod with manual azimuth/elevation mount","spec": "Manual tracking first. A rotator is an optimisation of something that already works.","qty": 1,"unit": 6000,"line": 6000,"mass": null,"flies": "Y","basis": "Estimate","where": "Photography / local","status": "To buy","warn": null},{"ref": "GRO-05","item": "Low-loss coaxial cable, 20 m, with connectors","spec": "LMR-400 class. Thin coax at 433 MHz over 20 m throws away much of what the antenna gained.","qty": 1,"unit": 5500,"line": 5500,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "GRO-06","item": "LoRa 865 MHz receiver and antenna","spec": "The licence-free telemetry path, independent of the amateur-band downlink.","qty": 1,"unit": 6000,"line": 6000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "GRO-07","item": "Field power: portable battery and inverter","spec": "The ground station runs where the launch is, not where the mains is.","qty": 1,"unit": 11000,"line": 11000,"mass": null,"flies": "Y","basis": "Estimate","where": "Any retailer","status": "To buy","warn": null},{"ref": "GRO-08","item": "Azimuth/elevation rotator","spec": "DEFER. Only once manual tracking is proven to be the constraint.","qty": 1,"unit": 0,"line": 0,"mass": null,"flies": "Y","basis": "Deferred — set cost when you decide to buy","where": "Import","status": "Deferred","warn": "Left at zero deliberately. Fill in a price only when manual tracking has been shown to limit you."}]}],"total": 64500,"flymass": 0},{"key": "test","sheet": "Test and tools","title": "Test equipment & tools","intro": "Bought once, used across both flights and into the CubeSat work. Your 8-channel logic analyser already covers I2C, SPI and UART debugging.","groups": [{"g": "BENCH — needed from month 4, when the payload starts coming together","items": [{"ref": "TES-01","item": "Bench power supply, 0–30 V, 5 A, current limited","spec": "For measuring real current draw per component, which is how a power budget gets built from measurements instead of datasheets (M06-C01).","qty": 1,"unit": 9000,"line": 9000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "TES-02","item": "Digital multimeter, good quality","spec": "You will trust this instrument for every electrical decision. Buy one you can trust.","qty": 1,"unit": 5000,"line": 5000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "TES-03","item": "Temperature-controlled soldering station with hot air","spec": "Hot air for the surface-mount sensor breakouts.","qty": 1,"unit": 9000,"line": 9000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "To buy","warn": null},{"ref": "TES-04","item": "Precision scale, 0.1 g to 5 kg","spec": "Mass budget work. Every gram changes the balloon sizing, so weigh the parts rather than trusting the listings.","qty": 1,"unit": 4500,"line": 4500,"mass": null,"flies": "Y","basis": "Estimate","where": "Any retailer","status": "To buy","warn": null},{"ref": "TES-05","item": "Oscilloscope, 2 channel, 100 MHz","spec": "DEFER if budget is tight. Your logic analyser covers the digital bus debugging you will do most often.","qty": 1,"unit": 30000,"line": 30000,"mass": null,"flies": "Y","basis": "Estimate","where": "Electronics supplier","status": "Deferred","warn": null}]},{"g": "ENVIRONMENTAL TEST — needed from month 10, before flight 1","items": [{"ref": "TES-06","item": "Vacuum chamber and two-stage pump","spec": "Tests the payload at stratospheric pressure. Low pressure changes thermal behaviour, kills convective cooling, and finds sealing failures.","qty": 1,"unit": 22000,"line": 22000,"mass": null,"flies": "Y","basis": "Estimate","where": "Lab supplier","status": "To buy","warn": "Test as you fly. A payload tested only at sea-level pressure has been tested as a different object (M19-D02)."},{"ref": "TES-07","item": "Dry ice for cold testing, per campaign","spec": "Cheapest route to −60 °C-class testing. Budget per test campaign rather than buying a freezer outright.","qty": 4,"unit": 2000,"line": 8000,"mass": null,"flies": "Y","basis": "Estimate","where": "Industrial gas supplier","status": "To buy","warn": null},{"ref": "TES-08","item": "Chest freezer for repeated cold soak","spec": "Optional alternative to dry ice if you expect many cold cycles. Reaches roughly −20 °C, not stratospheric, but useful for repeated functional testing.","qty": 1,"unit": 18000,"line": 18000,"mass": null,"flies": "Y","basis": "Estimate","where": "Any retailer","status": "Optional","warn": null},{"ref": "TES-09","item": "Load cell and lift measurement rig","spec": "Measures neck lift on fill day. Guessing the fill is how balloons burst low or ascend too slowly.","qty": 1,"unit": 3500,"line": 3500,"mass": null,"flies": "Y","basis": "Estimate","where": "Local / electronics","status": "To buy","warn": null},{"ref": "TES-10","item": "Anemometer and weather instruments","spec": "Launch-day go/no-go decisions at the site.","qty": 1,"unit": 3000,"line": 3000,"mass": null,"flies": "Y","basis": "Estimate","where": "Any retailer","status": "To buy","warn": null},{"ref": "TES-11","item": "Gas handling safety kit: gloves, goggles, trolley, first aid","spec": "Compressed gas cylinders are the most immediately dangerous thing in this entire programme.","qty": 1,"unit": 5000,"line": 5000,"mass": null,"flies": "Y","basis": "Estimate","where": "Safety supplier","status": "To buy","warn": null}]}],"total": 117000,"flymass": 0},{"key": "flight","sheet": "Per flight costs","title": "Per-flight recurring","intro": "Excludes the balloon and gas, which are listed on the version 1 and version 2 sheets. Multiply this sheet by the number of launch attempts, not the number of flights you plan.","groups": [{"g": "PER FLIGHT — recurring, and the reason a lost payload hurts twice","items": [{"ref": "PER-01","item": "Chase vehicle fuel and tolls","spec": "Gujarat, planning for a recovery drive of up to 200 km each way. The published glider flew 196 km from a 10 km release.","qty": 1,"unit": 4500,"line": 4500,"mass": null,"flies": "Y","basis": "Range verified from published glider flight","where": "—","status": "Per flight","warn": null},{"ref": "PER-02","item": "Satellite tracker airtime","spec": "Monthly plan plus per-message cost. Verify current pricing when you buy the hardware.","qty": 2,"unit": 2000,"line": 4000,"mass": null,"flies": "Y","basis": "Estimate — verify with provider","where": "Provider","status": "Per flight","warn": null},{"ref": "PER-03","item": "Mobile data and connectivity for the field team","spec": "Live tracking and prediction updates from the launch site.","qty": 1,"unit": 1000,"line": 1000,"mass": null,"flies": "Y","basis": "Estimate","where": "—","status": "Per flight","warn": null},{"ref": "PER-04","item": "Consumables: tape, cord, cable ties, batteries","spec": "Replaced every flight.","qty": 1,"unit": 3000,"line": 3000,"mass": null,"flies": "Y","basis": "Estimate","where": "Local","status": "Per flight","warn": null},{"ref": "PER-05","item": "Contingency for a second launch attempt","spec": "Weather scrubs happen. Budget for travelling to the site and not launching.","qty": 1,"unit": 5000,"line": 5000,"mass": null,"flies": "Y","basis": "Allowance","where": "—","status": "Per flight","warn": null}]}],"total": 17500,"flymass": 0},{"key": "fees","sheet": "Fees and permissions","title": "Fees, licences & permissions","intro": "These cost little and take the longest. Two of them gate the flight entirely: the radio licence decides what link you may legally run, and the DGCA permission decides whether you may fly at all.","groups": [{"g": "PERMISSIONS AND FEES — the longest-lead items in the programme","items": [{"ref": "FEE-01","item": "Amateur radio licence: ASOC exam and licence fee","spec": "The exam is a 100-mark written paper plus a Morse test, except for the Restricted grade. After passing there is police verification, and the process takes a few months.","qty": 1,"unit": 2000,"line": 2000,"mass": null,"flies": "Y","basis": "Verified: Indian amateur licensing information (VU2MSY)","where": "WPC, Ministry of Communications","status": "To start","warn": "CRITICAL PATH. The Restricted grade permits voice only on VHF/UHF, which does not cover a data downlink. Digital modes need a higher grade, and Grade I requires Morse. Start this in month 1, not month 12."},{"ref": "FEE-02","item": "Equipment Type Approval, if required","spec": "ETA is a self-declaration process on the Saral Sanchar portal for licence-free band equipment, reported at ₹10,000 per model.","qty": 1,"unit": 10000,"line": 10000,"mass": null,"flies": "Y","basis": "Verified: reported ETA fee, to be confirmed on the portal","where": "DoT Saral Sanchar","status": "To verify","warn": "Confirm whether ETA applies to you at all. It is normally the obligation of a manufacturer or importer, and buying an already-certified module may discharge it. Verify before budgeting a test report."},{"ref": "FEE-03","item": "RF test report for ETA, if required","spec": "Only if you must certify a module yourself. Verify necessity first, because this line is large.","qty": 1,"unit": 0,"line": 0,"mass": null,"flies": "Y","basis": "Left at zero pending the ETA question","where": "Accredited lab","status": "To verify","warn": "Deliberately zero. If you find you do need your own test report, this becomes one of the larger single lines in the programme."},{"ref": "FEE-04","item": "DGCA notification for an unmanned free balloon","spec": "Notification and NOTAM process, plus airspace coordination. A powered return changes how the application is read.","qty": 1,"unit": 5000,"line": 5000,"mass": null,"flies": "Y","basis": "Estimate — fees to be confirmed with DGCA","where": "DGCA","status": "To start","warn": "Start the conversation early and in writing. A powered, controlled return is not an ordinary free balloon, and the category matters."},{"ref": "FEE-05","item": "Local and district permissions, launch site","spec": "Police and district administration, plus any landowner agreement at the site.","qty": 1,"unit": 5000,"line": 5000,"mass": null,"flies": "Y","basis": "Estimate","where": "Local authorities","status": "To start","warn": null},{"ref": "FEE-06","item": "Third-party liability insurance","spec": "Ask for a quote early. The answer also tells you how an underwriter reads your risk.","qty": 1,"unit": 15000,"line": 15000,"mass": null,"flies": "Y","basis": "Estimate — obtain a quote","where": "Insurer","status": "To verify","warn": null}]}],"total": 37000,"flymass": 0}],"findings": [{"sec": "Findings that would cost you a payload","items": [{"t": "The radio licence gates the whole link design","d": "A published amateur build sent 640x480 video at 12 fps from a balloon using 1 W of FSK on the 70 cm band with LDPC coding, received past 50 km. In India, 1 W on 433 MHz is amateur-band operation. The licence-free allowance in 433-434.79 MHz is about 10 mW ERP, a hundred times less power. The amateur route means the ASOC exam, and the Restricted grade permits voice only, which does not cover a data downlink. Digital privileges need a higher grade, and Grade I requires a Morse test. After passing there is police verification, which takes months. Start this in month 1. It is the longest-lead item in the programme and it decides what link you may legally fly."},{"t": "Licence-free telemetry works, but the duty cycle does not allow video","d": "India permits up to 500 mW ERP in 865-868 MHz for tracking, tracing and data acquisition, with adaptive power control mandatory and a 2.5% duty cycle. That is ample for position and housekeeping telemetry and nowhere near enough for live video. Note also that the Indian band tops out at 868 MHz, so the standard European LoRa channels at 868.1, 868.3 and 868.5 MHz fall outside it. Use the India 865-867 plan."},{"t": "Your GPS probably works, but prove it","d": "I expected the NEO-7M to stop at the 18 km export-control limit. Checking it, the u-blox 6/7/8 family combines its altitude and speed limits with AND logic, so it keeps reporting above 18 km as long as speed stays under 515 m/s, and is rated to about 50 km in flight mode. The real risk is that clone boards do not persist the airborne dynamic model across a power cycle. Test it: set airborne mode, power cycle, confirm it still reports. Buy one known-good module as primary and keep yours as secondary."},{"t": "A barometer rated for aviation is not rated for the stratosphere","d": "Pressure at 35 km is about 5 to 6 hPa. A common BMP280 bottoms out near 300 hPa, which is roughly 9 km, so it would stop reading about a quarter of the way up. Specify the minimum pressure from the datasheet rather than an altitude claim in a product listing. This is the most commonly mis-specified part on a balloon payload."},{"t": "Your servos and propeller are sized for the wrong air","d": "MG996R servos are not rated for stratospheric cold and weigh about 55 g each. Use them for bench and drop testing, and buy cold-rated servos for flight. Separately, air at 10 km is roughly a quarter of sea-level density, so your A2212 with a 1045 propeller will not produce the thrust it does on the bench. Expect a larger diameter and a higher pitch, and test at altitude-equivalent loading rather than assuming."}]},{"sec": "The finding that challenges version 1 as specified","items": [{"t": "Returning to base from 35 km is the highest-risk requirement in the programme","d": "A documented autonomous glider flight aimed for a 30 km release and settled for 10 km, because forecast stratospheric winds would have carried the vehicle hundreds of miles out over the ocean. From its 10 km release it still flew about 196 km in a little over two hours, at a top speed near 95 m/s, and landed roughly 10 m from its target waypoint. It used a Pixhawk commanded over MAVLink by a Raspberry Pi Zero, weighed about 1300 g, and the team made six drop tests from a quadcopter before flying it. Two things follow. First, the glide approach works and is proven, which answers your doubt about it. Second, the wind problem at 35 km is real and was enough to make an experienced team lower their release altitude by two thirds. Your version 1 asks for 35 km and a powered return to the launch point. That is a harder problem than the documented precedent, on a first flight. Recommendation: fly a tracker-only shakedown first. It costs a balloon, gas and a few thousand rupees of tracker, and it tells you what the winds over Gujarat actually do to a descending payload. Then commit the expensive vehicle."}]},{"sec": "How to read the prices in this workbook","items": [{"t": "Three figures are grounded, the rest are estimates","d": "Grounded: helium at about 2,300 rupees for a 7 cubic metre balloon-grade cylinder, from a current Indian supplier listing. The radio architecture and the glider architecture, both from published builds named above. Everything else is a planning estimate, marked as such in the price basis column. Re-quote before ordering, and expect import duty and shipping on anything not available in India."},{"t": "Two lines are deliberately left at zero","d": "The RF test report on the fees sheet, and the antenna rotator on the ground station sheet. Both are real possible costs that should not be budgeted until a question is answered: whether you need your own type approval at all, and whether manual antenna tracking actually limits you. Filling in a guess for either would make the rollup look more certain than it is."},{"t": "Mass is the number that moves the budget","d": "The balloon and its gas are the largest consumable, and balloon size follows from payload mass. An extra 500 g can push you up a balloon size and add a cylinder of helium. Weigh parts as they arrive and keep the mass column current. Separate the flying payload mass from the lift and recovery hardware when you build the real budget; the version 1 sheet totals them together."}]},{"sec": "Where this connects to the study plan","items": [{"t": "The BOM is module 5 and module 6 made physical","d": "M05-B01 is building a mass budget with margin per item. M06-C01 to M06-C03 are the energy balance. M07-B05 is the link budget that decides whether your downlink can carry what your camera produces. M19-D01 to M19-D04 are the budget-constrained environmental tests this workbook funds. Do not finalise any of these numbers before you have worked through those modules. The point of the plan is that you can defend each figure yourself."}]}],"rollup": [{"name": "Already in hand","cost": 0,"note": "Credited at zero. Three items need checking or replacing before flight."},{"name": "Version 1 flight hardware","cost": 315140,"note": "Includes the balloon, gas and a spare balloon for flight 1. Mass column shows flying payload only."},{"name": "Version 2 additions","cost": 207400,"note": "Deltas only. Reuses the version 1 avionics, radios and power system."},{"name": "Ground station","cost": 64500,"note": "Reused across every flight and into the satellite work."},{"name": "Test equipment and tools","cost": 117000,"note": "Bought once. Includes two lines marked deferred."},{"name": "Per-flight recurring costs","cost": 52500,"note": "Multiplied by three launch attempts, not two flights. Weather scrubs happen."},{"name": "Fees, licences and permissions","cost": 37000,"note": "Two lines are unresolved and left at zero. See the Rules sheet."}],"cuts": [{"name": "Defer the oscilloscope","save": 30000,"run": 30000,"note": "Your logic analyser covers the digital bus debugging you will actually do. Buy a scope when you can name the measurement you cannot make without one."},{"name": "Defer the 14-bit SDR","save": 24000,"run": 54000,"note": "Start with the RTL-SDR v5 you own. Buy the better receiver when a measurement shows the receiver is your limiting factor, not before."},{"name": "Drop the chest freezer, use dry ice","save": 18000,"run": 72000,"note": "Dry ice reaches stratospheric-class cold; the freezer only reaches about minus 20. Keep the dry ice line and lose the appliance."},{"name": "One satellite tracker, not two","save": 32000,"run": 104000,"note": "Carry it over from flight 1 to flight 2 rather than buying a second. You lose redundancy on the long-range link, so keep two independent GSM trackers."},{"name": "Defer the version 2 imaging upgrade","save": 35000,"run": 139000,"note": "Fly version 2 on the version 1 cameras. Specify the upgrade from what flight 1 and flight 2 actually show you need, which is the honest order anyway."},{"name": "Defer the calibrated sensor set to flight 3","save": 18000,"run": 157000,"note": "The reusable-radiosonde claim needs traceable instruments, but it does not need them before you have proven the vehicle returns."},{"name": "One spare balloon across both flights, not two","save": 26000,"run": 183000,"note": "Buy three balloons rather than four. You accept that a second burst on fill day ends that campaign."},{"name": "Halve the unallocated version 2 spares","save": 12500,"run": 195500,"note": "From 25,000 to 12,500. Thin, and the first thing to restore if flight 1 goes badly."},{"name": "Trim third launch attempt allowance","save": 17500,"run": 213000,"note": "Budget two launch attempts rather than three. You accept that a second weather scrub costs you money you have not set aside."}],"budget": {"subtotal": 793540,"contrate": 0.2,"contingency": 158708,"total": 952248,"budget_lo": 500000,"budget_hi": 600000,"headroom": -352248,"cut_total": 213000,"after_cuts": 696648,"after_cuts_share": 1.16108,"opt_total": 606048,"opt_share": 1.01008,"opt_headroom": -6048,"shakedown": 45000,"not_enough": "Taking every cut above still leaves the programme over your budget. That is the honest result, and it points at one conclusion: two full flights plus a complete ground station plus a test bench plus the licences is roughly a seven lakh programme, not a six lakh one. The way to fit six lakh is not to shave it further. It is to stop after version 1 and let version 2 fall into the next budget cycle, which is also the right engineering order, since version 2 should be specified from what version 1 actually teaches you.","caveat": "One caveat on that total: it funds two balloons and two fills, which the shakedown and version 1 consume between them. It retains no spare balloon. If a balloon bursts on fill day, that campaign stops until you buy another, at roughly 26,000 rupees plus gas. Decide deliberately whether you are carrying that risk or budgeting it.","cheaper": "Before either of these flights, fly a shakedown: one balloon, one parachute, two independent trackers, a camera and the sensor board. No glider, no propellers, no return to base. It costs roughly a balloon, three cylinders of gas and the trackers, and it buys you the one thing no calculation gives you, which is what the winds over Gujarat actually do to a payload descending from 35 km. A documented autonomous glider team aimed for a 30 km release and settled for 10 km for exactly that reason. Fly the cheap one first and the expensive vehicle second, and the odds of recovering the expensive vehicle go up sharply.","mass_note": ""}};
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s);
+const slug=s=>String(s).replace(/&amp;/g,'and').replace(/\W+/g,'');
+/* TOPIC CODES — format M<module,2 digits>-<group letter><item,2 digits>.
+   Example: M14-C05 = module 14, third topic group, fifth topic.
+   Group letters run A, B, C ... in the order the groups are listed in a module.
+   The code is also the checkbox id, so an exported progress file is readable. */
+const GL='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const code=(mod,gi,ii)=>'M'+String(mod).padStart(2,'0')+'-'+GL[gi]+String(ii+1).padStart(2,'0');
+
+let storageOK=false;
+function testStorage(){
+  try{localStorage.setItem(KEY+'-t','1');localStorage.removeItem(KEY+'-t');return true;}
+  catch(e){return false;}
+}
+function load(){
+  try{const s=localStorage.getItem(KEY);if(s)state=JSON.parse(s);}catch(e){}
+}
+function save(){
+  if(!storageOK)return;
+  try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+}
+function warnNoStorage(){
+  const bar=document.createElement('div');
+  bar.className='warnbar';
+  bar.textContent='This browser is not saving progress for this page. Your ticks will disappear when you close it — click "Export progress" before you leave, and "Import" when you come back. Opening the file from a web address instead of a local folder fixes this.';
+  document.body.insertBefore(bar,document.body.firstChild);
+}
+
+function renderMethod(){
+  $('#method').innerHTML=METHOD.map(m=>`
+    <div class="row-card">
+      <span class="num">${m.n}</span>
+      <h4>${m.t}</h4>
+      <p>${m.d}</p>
+    </div>`).join('');
+}
+
+function renderStages(){
+  $('#stages').innerHTML=STAGES.map(s=>`
+    <div class="stage">
+      <div class="tagline">Stage ${s.s} · ${s.when}</div>
+      <h3 class="display-md">${s.t}</h3>
+      <p>${s.d}</p>
+      <div class="milestone">
+        <em>Build milestone</em>${s.ms}
+        <div class="stage-meter"><i data-stagebar="${s.s}"></i></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderPills(){
+  const items=[{v:'all',l:'All modules'}].concat(STAGES.map(s=>({v:String(s.s),l:'Stage '+s.s})));
+  items.push({v:'build',l:'Build track'});
+  $('#pills').innerHTML=items.map((it,i)=>
+    `<button class="pill" data-filter="${it.v}" aria-pressed="${i===0}">${it.l}</button>`).join('');
+}
+
+function renderModules(){
+  $('#modules').innerHTML=MODULES.map(m=>{
+    const topics=m.groups.map((g,gi)=>`
+      <div class="grouplbl">${g.g}<span class="grpcode">${code(m.n,gi,0).slice(0,-2)}…</span></div>
+      <ul class="topics">${g.items.map((it,i)=>{
+        const id=code(m.n,gi,i);
+        return `<li><label class="t" data-code="${id}"><input type="checkbox" data-id="${id}" data-mod="${m.n}" data-stage="${m.stage}"><span class="code">${id}</span><span>${it}</span></label></li>`;
+      }).join('')}</ul>`).join('');
+
+    const res=m.res.map(r=>r.u
+      ? `<a href="${r.u}" target="_blank" rel="noopener">${r.n}<em>${r.e}</em></a>`
+      : `<div class="bk">${r.b}<em>${r.e}</em></div>`).join('');
+
+    return `<article class="mod${m.build?' build':''}" data-mod="${m.n}" data-stage="${m.stage}" data-build="${m.build?1:0}" id="mod-${m.n}">
+      <button class="mod-head" aria-expanded="false" aria-controls="body-${m.n}">
+        <div class="mod-num">${String(m.n).padStart(2,'0')}</div>
+        <div>
+          <div class="mod-title">${m.title}</div>
+          <div class="mod-sub">${m.sub}</div>
+        </div>
+        <div class="mod-right">
+          <span class="count" data-count="${m.n}">0/0</span>
+          <svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+            <circle cx="18" cy="18" r="15" fill="none" stroke="#e8e4dd" stroke-width="3"/>
+            <circle data-ring="${m.n}" cx="18" cy="18" r="15" fill="none"
+              stroke="${m.build?'#0e3030':'#1b1938'}" stroke-width="3" stroke-linecap="round"
+              stroke-dasharray="94.2" stroke-dashoffset="94.2"/>
+          </svg>
+          <span class="chev">▼</span>
+        </div>
+      </button>
+      <div class="mod-body" id="body-${m.n}">
+        <div class="body-grid">
+          <div>${topics}</div>
+          <aside class="res"><h5>Where to learn it</h5>${res}</aside>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderLibrary(){
+  document.querySelector('#library').innerHTML=LIBRARY.map(c=>`
+    <div class="lib-card">
+      <h4>${c.t}</h4>
+      <p>${c.p}</p>
+      <ul>${c.items.map(it=>it.u
+        ? `<li><a href="${it.u}" target="_blank" rel="noopener">${it.n}</a><em>${it.e}</em></li>`
+        : `<li><span class="nolink">${it.n}</span><em>${it.e}</em></li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+function refresh(){
+  let done=0,total=0,modsDone=0;
+  const stTot={},stDone={};
+  MODULES.forEach(m=>{
+    const boxes=[...document.querySelectorAll(`input[data-mod="${m.n}"]`)];
+    const d=boxes.filter(b=>b.checked).length;
+    done+=d; total+=boxes.length;
+    stTot[m.stage]=(stTot[m.stage]||0)+boxes.length;
+    stDone[m.stage]=(stDone[m.stage]||0)+d;
+    document.querySelector(`[data-count="${m.n}"]`).textContent=`${d}/${boxes.length}`;
+    const ring=document.querySelector(`[data-ring="${m.n}"]`);
+    const frac=boxes.length?d/boxes.length:0;
+    ring.setAttribute('stroke-dashoffset',(94.2*(1-frac)).toFixed(1));
+    const card=document.querySelector(`.mod[data-mod="${m.n}"]`);
+    const full=boxes.length>0&&d===boxes.length;
+    card.classList.toggle('done',full);
+    if(full)modsDone++;
+  });
+
+  const pct=total?done/total:0;
+  $('#pctText').textContent=Math.round(pct*100)+'%';
+  $('#sDone').textContent=done;
+  $('#sTotal').textContent=total;
+  $('#tTotal').textContent=total;
+  $('#sMods').textContent=modsDone+'/'+MODULES.length;
+  $('#mainMeter').style.width=(pct*100)+'%';
+  $('#dialArc').setAttribute('stroke-dashoffset',(490*(1-pct)).toFixed(1));
+
+  STAGES.forEach(s=>{
+    const bar=document.querySelector(`[data-stagebar="${s.s}"]`);
+    const f=stTot[s.s]?stDone[s.s]/stTot[s.s]:0;
+    if(bar)bar.style.width=(f*100)+'%';
+  });
+
+  let cur=STAGES[STAGES.length-1].s;
+  for(const s of STAGES){
+    const f=stTot[s.s]?stDone[s.s]/stTot[s.s]:0;
+    if(f<1){cur=s.s;break;}
+  }
+  $('#sStage').textContent=cur;
+}
+
+function applyState(){
+  document.querySelectorAll('input[type=checkbox][data-id]').forEach(b=>{
+    b.checked=!!state[b.dataset.id];
+  });
+}
+
+function toast(msg){
+  const t=$('#toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),2300);
+}
+
+/* ---- events ---- */
+document.addEventListener('change',e=>{
+  const b=e.target;
+  if(b.matches('input[type=checkbox][data-id]')){
+    if(b.checked)state[b.dataset.id]=1;else delete state[b.dataset.id];
+    refresh();save();
+  }
+});
+
+document.addEventListener('click',e=>{
+  const bh=e.target.closest('.bgroup-head');
+  if(bh){const c=bh.parentElement;const o=c.classList.toggle('open');bh.setAttribute('aria-expanded',o);return;}
+  const h=e.target.closest('.mod-head');
+  if(h){
+    const card=h.parentElement;
+    const open=card.classList.toggle('open');
+    h.setAttribute('aria-expanded',open);
+    return;
+  }
+  const p=e.target.closest('.pill');
+  if(p){
+    document.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-pressed',x===p));
+    const f=p.dataset.filter;
+    document.querySelectorAll('.mod').forEach(m=>{
+      const show = f==='all' || (f==='build'? m.dataset.build==='1' : m.dataset.stage===f);
+      m.hidden=!show;
+    });
+  }
+});
+
+$('#btnExpand').addEventListener('click',e=>{
+  const vis=[...document.querySelectorAll('.mod')].filter(m=>!m.hidden);
+  const anyClosed=vis.some(m=>!m.classList.contains('open'));
+  vis.forEach(m=>{
+    m.classList.toggle('open',anyClosed);
+    m.querySelector('.mod-head').setAttribute('aria-expanded',anyClosed);
+  });
+  e.target.textContent=anyClosed?'Collapse all':'Expand all';
+});
+
+$('#btnJump').addEventListener('click',()=>{
+  const next=MODULES.find(m=>{
+    const boxes=[...document.querySelectorAll(`input[data-mod="${m.n}"]`)];
+    return boxes.some(b=>!b.checked);
+  })||MODULES[0];
+  const el=document.getElementById('mod-'+next.n);
+  document.querySelectorAll('.mod').forEach(m=>m.hidden=false);
+  document.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-pressed',x.dataset.filter==='all'));
+  el.classList.add('open');
+  el.querySelector('.mod-head').setAttribute('aria-expanded',true);
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+$('#tealCta').addEventListener('click',e=>{
+  e.preventDefault();
+  const el=document.getElementById('mod-24');
+  el.classList.add('open');
+  el.querySelector('.mod-head').setAttribute('aria-expanded',true);
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+function gotoCode(raw){
+  const q=String(raw||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  const norm=q.replace(/^M?(\d{1,2})([A-Z])(\d{1,2})$/,(_,m,g,i)=>'M'+m.padStart(2,'0')+'-'+g+i.padStart(2,'0'));
+  const el=document.querySelector(`label.t[data-code="${norm}"]`);
+  const hit=$('#codeHit');
+  if(!el){hit.innerHTML='No topic has the code <b>'+norm+'</b>.';return false;}
+  document.querySelectorAll('.mod').forEach(x=>x.hidden=false);
+  document.querySelectorAll('.pill').forEach(x=>x.setAttribute('aria-pressed',x.dataset.filter==='all'));
+  const card=el.closest('.mod');
+  card.classList.add('open');
+  card.querySelector('.mod-head').setAttribute('aria-expanded',true);
+  hit.innerHTML='<b>'+norm+'</b> \u2014 '+el.querySelector('span:not(.code)').textContent;
+  el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1400);
+  try{el.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+  return true;
+}
+$('#codeBox').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();gotoCode(e.target.value);}});
+$('#codeBox').addEventListener('input',e=>{const v=e.target.value.replace(/[^A-Za-z0-9-]/g,'').toUpperCase();if(v!==e.target.value)e.target.value=v;if(v.replace(/-/g,'').length>=4)gotoCode(v);});
+
+$('#btnExport').addEventListener('click',()=>{
+  const done=Object.keys(state).sort();
+  const payload={plan:'geo-deeptech-18-month',exported:new Date().toISOString(),
+    code_format:'M<module,2 digits>-<group letter><item,2 digits>, e.g. M14-C05',
+    completed_topic_codes:done,ticks:state};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='study-progress.json';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Progress exported');
+});
+
+$('#btnImport').addEventListener('click',()=>$('#fileIn').click());
+$('#fileIn').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const p=JSON.parse(r.result);
+      state=p.ticks||p;
+      applyState();refresh();save();
+      toast('Progress imported');
+    }catch(err){toast('That file could not be read as progress data');}
+  };
+  r.readAsText(f);ev.target.value='';
+});
+
+$('#btnReset').addEventListener('click',()=>{
+  if(!confirm('Clear every tick on this plan? Export a backup first if you want to keep it.'))return;
+  state={};applyState();refresh();save();toast('Progress cleared');
+});
+
+/* ---- boot ---- */
+const inr=v=>(v===null||v===undefined||v==='')?'\u2014':
+  (v<0?'\u2212\u20b9':'\u20b9')+Math.abs(Math.round(v)).toLocaleString('en-IN');
+const gms=v=>(v===null||v===undefined||v==='')?'\u2014':Math.round(v).toLocaleString('en-IN')+' g';
+
+function renderBomStats(){
+  const b=BOM.budget;
+  const cards=[
+   {k:'bad', v:inr(b.total), l:'As specified', e:'Versions 1 and 2 in full, with contingency at '+Math.round(b.contrate*100)+'%.'},
+   {k:'',    v:inr(b.budget_hi), l:'Your budget, high end', e:'As you stated it: 5 to 6 lakh across the 18 months.'},
+   {k:'bad', v:Math.round(b.total/b.budget_hi*100-100)+'%', l:'Over budget', e:'A gap of '+inr(Math.abs(b.headroom))+'. The cut list below saves '+inr(b.cut_total)+' and still does not close it.'},
+   {k:'good',v:inr(b.opt_total), l:'The option that fits', e:'Shakedown flight plus version 1, version 2 deferred to a second budget cycle. '+Math.round(b.opt_share*100)+'% of your high budget.'},
+   {k:'',    v:gms(BOM.sheets.find(s=>s.key==='v1').flymass), l:'V1 flying payload', e:'Roughly three times the 1,300 g of the documented glider flight. Mass sets balloon size, and balloons plus gas are your largest consumable.'}
+  ];
+  document.querySelector('#bomStats').innerHTML=cards.map(c=>
+    `<div class="stat-card ${c.k}"><b>${c.v}</b><span>${c.l}</span><em>${c.e}</em></div>`).join('');
+}
+
+function renderBomFindings(){
+  document.querySelector('#bomFindings').innerHTML=BOM.findings.map(sec=>
+    `<div class="findsec">${sec.sec}</div>`+
+    sec.items.map(it=>`<div class="find"><h4>${it.t}</h4><p>${it.d}</p></div>`).join('')
+  ).join('');
+}
+
+function renderBomSheets(){
+  document.querySelector('#bomSheets').innerHTML=BOM.sheets.map(s=>{
+    const n=s.groups.reduce((a,g)=>a+g.items.length,0);
+    const body=s.groups.map(g=>
+      `<div class="bsub">${g.g}</div>`+
+      g.items.map(it=>`
+        <div class="bitem">
+          <div>
+            <div class="nm"><span class="rf">${it.ref}</span>${it.item}</div>
+            <div class="sp">${it.spec}</div>
+            ${it.warn?`<div class="wn"><b>Note.</b> ${it.warn}</div>`:''}
+          </div>
+          <div class="bmeta">
+            <div><span>Qty</span><b>${it.qty!==null&&it.qty!==undefined?it.qty:'\u2014'}</b></div>
+            <div><span>Unit</span><b>${inr(it.unit)}</b></div>
+            <div><span>Line</span><b>${inr(it.line)}</b></div>
+            <div><span>Mass each</span><b>${it.mass?gms(it.mass):'\u2014'}</b></div>
+            <div><span>Flies</span><b>${it.flies||'\u2014'}</b></div>
+            <div><span>Status</span><b>${it.status}</b></div>
+            <div class="wide"><span>Price basis</span><b>${it.basis}</b></div>
+            <div class="wide"><span>Where</span><b>${it.where}</b></div>
+          </div>
+        </div>`).join('')
+    ).join('');
+    return `<article class="bgroup" data-bom="${s.key}">
+      <button class="bgroup-head" aria-expanded="false">
+        <div>
+          <div class="t">${s.title}</div>
+          <div class="s">${n} line${n===1?'':'s'}${s.flymass?' \u00b7 flying payload '+gms(s.flymass):''}</div>
+        </div>
+        <div class="amt">${inr(s.total)}</div>
+      </button>
+      <div class="bgroup-body">
+        <p style="color:var(--ink-mute);font-size:14px;margin:0 0 var(--s-lg);line-height:1.5">${s.intro}</p>
+        ${body}
+        <div class="btot"><span class="l">Section total</span><span class="v">${inr(s.total)}</span></div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderBomFit(){
+  const b=BOM.budget;
+  const roll=BOM.rollup.map(r=>
+    `<tr><td>${r.name}<div class="note">${r.note}</div></td><td class="n" data-l="Cost">${inr(r.cost)}</td></tr>`).join('');
+  const cuts=BOM.cuts.map(c=>
+    `<tr><td>${c.name}<div class="note">${c.note}</div></td><td class="n" data-l="Saves">${inr(c.save)}</td>`+
+    `<td class="n" data-l="Running">${inr(c.run)}</td></tr>`).join('');
+  document.querySelector('#bomFit').innerHTML=`
+    <div class="find">
+      <h4>Where the money goes</h4>
+      <table class="cuts"><thead><tr><th>Line</th><th>Cost</th></tr></thead><tbody>
+        ${roll}
+        <tr><td><b>Subtotal</b></td><td class="n" data-l="Cost">${inr(b.subtotal)}</td></tr>
+        <tr><td>Contingency at ${Math.round(b.contrate*100)}%<div class="note">Breakage, re-orders, shipping, customs, and the parts you have not thought of.</div></td><td class="n" data-l="Cost">${inr(b.contingency)}</td></tr>
+        <tr><td><b>Programme total</b></td><td class="n" data-l="Cost">${inr(b.total)}</td></tr>
+      </tbody></table>
+    </div>
+    <div class="find">
+      <h4>The cut path, in order</h4>
+      <table class="cuts"><thead><tr><th>Cut</th><th>Saves</th><th>Running total</th></tr></thead><tbody>
+        ${cuts}
+        <tr><td><b>Total saved</b></td><td class="n" data-l="Saves">${inr(b.cut_total)}</td><td></td></tr>
+      </tbody></table>
+      <p style="margin-top:var(--s-lg);font-size:15px"><b>After every cut: ${inr(b.after_cuts)}</b>, which is ${Math.round(b.after_cuts_share*100)}% of the high budget. Still over.</p>
+    </div>
+    <div class="find">
+      <h4>The cuts are not enough</h4>
+      <p>${b.not_enough}</p>
+    </div>
+    <div class="find">
+      <h4>Option: shakedown plus version 1, version 2 deferred</h4>
+      <table class="cuts"><tbody>
+        <tr><td>Programme total, this option</td><td class="n" data-l="Total">${inr(b.opt_total)}</td></tr>
+        <tr><td>Headroom against the high budget</td><td class="n" data-l="Headroom">${inr(b.opt_headroom)}</td></tr>
+        <tr><td>Share of the high budget</td><td class="n" data-l="Share">${Math.round(b.opt_share*1000)/10}%</td></tr>
+      </tbody></table>
+      <p style="margin-top:var(--s-lg);font-size:14px;color:var(--ink-mute)">${b.caveat}</p>
+    </div>
+    <div class="find">
+      <h4>The cheaper option I would actually take</h4>
+      <p>${b.cheaper}</p>
+      <p style="margin-top:var(--s-md)"><b>Shakedown flight, rough cost: ${inr(b.shakedown)}</b> — balloon, gas, parachute, rigging, two independent GSM trackers and the chase. Re-quote it; the figure is an estimate.</p>
+    </div>`;
+}
+
+(function(){
+  renderMethod();renderStages();renderPills();renderModules();renderLibrary();
+  renderBomStats();renderBomFindings();renderBomSheets();renderBomFit();
+  storageOK=testStorage();
+  if(storageOK)load(); else warnNoStorage();
+  applyState();refresh();
+  const n=document.querySelectorAll('input[data-id]').length;
+  $('#stamp').textContent=MODULES.length+' modules · '+n+' topics and build steps';
+})();
+</script>
+</body>
+</html>
